@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework.Internal;
 using RedRainParks.Data.Repositories;
 using RedRainParks.Domain.Interfaces;
-using RedRainParks.Domain.Models.AddressModels.DataTransferObjects;
+using RedRainParks.Domain.Models.AddressModels;
 using RedRainParks.Domain.Models.AddressModels.Requests;
 
 namespace RedRainParks.Data.Tests.RepositoryTests

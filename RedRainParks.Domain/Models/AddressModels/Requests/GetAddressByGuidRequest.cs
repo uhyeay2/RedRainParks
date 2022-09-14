@@ -15,5 +15,8 @@ namespace RedRainParks.Domain.Models.AddressModels.Requests
         public GetAddressByGuidRequest(Guid? guid) : base(guid)
         {
         }
+
+        public string Language { get; set; } = Enum.GetName(Enums.StateDisplay.English)!;
+
     }
 }

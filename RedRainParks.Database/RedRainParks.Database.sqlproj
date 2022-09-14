@@ -66,6 +66,7 @@
     <Build Include="Tables\Address.sql" />
     <Build Include="Tables\StateLookup.sql" />
     <Build Include="Programmability\StoredProcedures\proc_INSERT_Address.sql" />
+    <Build Include="Tables\UsedGuids.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RedRainParks.Database.publish.xml" />

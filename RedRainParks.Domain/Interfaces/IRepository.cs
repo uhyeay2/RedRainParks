@@ -4,6 +4,8 @@
 
     public interface IAddressRepository : IRepository { }
 
+    public interface IStateLookupRepository : IRepository { }
+
     #endregion
 
     #region RepositoryBase

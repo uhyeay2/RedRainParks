@@ -1,6 +1,8 @@
-﻿namespace RedRainParks.Domain.Models.BaseRequests
+﻿using RedRainParks.Domain.Interfaces;
+
+namespace RedRainParks.Domain.Models.BaseRequests
 {
-    public abstract class GetByGuidRequest
+    public abstract class GetByGuidRequest : IValidatable
     {
         public Guid? Guid { get; set; }
 

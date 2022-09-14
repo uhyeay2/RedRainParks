@@ -1,6 +1,8 @@
-﻿namespace RedRainParks.Domain.Models.AddressModels.Requests
+﻿using RedRainParks.Domain.Interfaces;
+
+namespace RedRainParks.Domain.Models.AddressModels.Requests
 {
-    public class InsertAddressRequest
+    public class InsertAddressRequest : IValidatable
     {
         public Guid Guid { get; set; }
 
@@ -22,6 +24,17 @@
             City = city;
             StateId = stateId;
             PostalCode = postalCode;
+        }
+
+        public bool IsValid(out string failedValidationMessage)
+        {
+            if(Guid == Guid.Empty)
+            {
+                failedValidationMessage = "Invalid Request! Must provide a Guid";
+                return false;
+            }
+            failedValidationMessage = String.Empty;
+            return true;
         }
     }
 }

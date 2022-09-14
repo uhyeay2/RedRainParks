@@ -20,17 +20,7 @@ namespace RedRainParks.Data.Repositories
             },
             {
                 typeof(InsertAddressRequest), new SqlAndSqlParamsFuncMap<InsertAddressRequest>(AddressProcedures.Insert, 
-                    requestObj =>
-                    {
-                        var parameters = new DynamicParameters();
-                        parameters.Add("Guid", requestObj.Guid, DbType.Guid);
-                        parameters.Add("Line1", requestObj.Line1, DbType.String);
-                        parameters.Add("Line2", requestObj.Line2, DbType.String);
-                        parameters.Add("City", requestObj.City, DbType.String);
-                        parameters.Add("StateId", requestObj.StateId, DbType.Int32);
-                        parameters.Add("PostalCode", requestObj.PostalCode, DbType.String);
-                        return parameters;
-                    })
+                    requestObj => new {requestObj.Guid, requestObj.Line1, requestObj.Line2, requestObj.City, requestObj.StateId, requestObj.PostalCode})
             },
         };
 

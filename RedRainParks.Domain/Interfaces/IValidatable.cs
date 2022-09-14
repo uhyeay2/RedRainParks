@@ -1,6 +1,8 @@
-﻿namespace RedRainParks.Domain.Interfaces
+﻿using RedRainParks.Domain.Models.BaseModels;
+
+namespace RedRainParks.Domain.Interfaces
 {
-    internal interface IValidatable
+    public interface IValidatable
     {
         bool IsValid(out string failedValidationMessage);
     }

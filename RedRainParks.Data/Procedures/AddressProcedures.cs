@@ -1,10 +1,14 @@
-﻿namespace RedRainParks.Data.Procedures
+﻿using RedRainParks.Domain.Constants;
+
+namespace RedRainParks.Data.Procedures
 {
     internal static class AddressProcedures
     {
-        public const string GetById = "SELECT Address.* FROM Address WITH(NOLOCK) WHERE Address.Id = @Id";
+        private static string _fromAddressJoinStateLookupOnStateId = "FROM Address WITH(NOLOCK) LEFT JOIN StateLookup WITH(NOLOCK) ON Address.StateId = StateLookup.Id";
 
-        public const string GetByGuid = "SELECT Address.* FROM Address WITH(NOLOCK) WHERE Address.Guid = @Guid";
+        public static string GetById = $"SELECT {DTOProperties.Address} {_fromAddressJoinStateLookupOnStateId} WHERE Address.Id = @Id";
+
+        public static string GetByGuid = $"SELECT {DTOProperties.Address} {_fromAddressJoinStateLookupOnStateId} WHERE Address.Guid = @Guid";
 
         public const string Insert = "PROC_INSERT_Address";
     }
