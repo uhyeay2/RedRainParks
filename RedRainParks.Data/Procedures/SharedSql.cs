@@ -6,6 +6,8 @@ namespace RedRainParks.Data.Procedures
     {
         public static string Coalesce(params string[] fields) => fields.Select(f => $"{f} = COALESCE(@{f}, {f})").AggregateWithCommas();
 
+        public static string Delete(string table, string where) => $"DELETE FROM {table} WHERE {where}";
+
         /// <summary>
         /// Return a string representing WHERE condition - Example:
         /// $"WHERE ({column1} = {param1} OR {param1} IS NULL) AND ({column2} = {param2} OR {param2} IS NULL)"

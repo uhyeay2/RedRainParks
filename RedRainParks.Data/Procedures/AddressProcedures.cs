@@ -12,7 +12,7 @@ namespace RedRainParks.Data.Procedures
 
         public static readonly string UpdateById = $"UPDATE Address SET {SharedSql.Coalesce(DTOProperties.AddressUpdateableFields)} WHERE Address.Id = @Id";
 
-        public static readonly string DeleteById = $"DELETE FROM Address WHERE Id = @Id";
+        public static readonly string DeleteById = SharedSql.Delete("Address", "Id = @Id");
 
         public const string Insert = "PROC_INSERT_Address";
     }
