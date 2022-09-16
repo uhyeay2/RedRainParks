@@ -16,7 +16,7 @@ Post-Deployment Script Template
  -- TempStatesTable that holds the data to be inserted into StateLookup table
  CREATE TABLE #TempStatesTable ( Id INT PRIMARY KEY IDENTITY(1, 1), StateDetails NVARCHAR(MAX) )
  INSERT INTO #TempStatesTable (StateDetails) Values 
-    ('AL, Alabama, Alabama'),                     ('AK, Alaska, Alaska'),                      ('AZ , Arizona, Arizona'),
+    ('AL, Alabama, Alabama'),                     ('AK, Alaska, Alaska'),                      ('AZ, Arizona, Arizona'),
     ('AR, Arkansas, Arkansas'),                   ('AS, American Samoa, American Samoa'),      ('CA, California, California'), 
     ('CO, Colorado, Colorado'),                   ('CT, Connecticut, Conécticut'),             ('DE, Delaware, Delaware'), 
     ('DC, District of Columbia, Distrito Federal de Columbia'),                                ('FL, Florida, Florida'), 
@@ -29,8 +29,8 @@ Post-Deployment Script Template
     ('NE, Nebraska, Nebraska'),                   ('NV, Nevada, Nevada'),                      ('NH, New Hampshire, Nuevo Hampshire'), 
     ('NJ, New Jersey, Nueva Jersey'),             ('NM, New Mexico, Nuevo México'),            ('NY, New York, Nueva York'), 
     ('NC, North Carolina, Carolina del Norte'),   ('ND, North Dakota, Dakota del Norte'), 
-    ('CM, Northern Mariana Islands, Northern Mariana Islands'),                                ('OH , Ohio, Ohio'),
-    ('OK, Oklahoma, Oklahoma'),                   ('OR Oregon, Oregón'),                       ('PA, Pennsylvania, Pensilvania'),
+    ('CM, Northern Mariana Islands, Northern Mariana Islands'),                                ('OH, Ohio, Ohio'),
+    ('OK, Oklahoma, Oklahoma'),                   ('OR, Oregon, Oregón'),                      ('PA, Pennsylvania, Pensilvania'),
     ('PR, Puerto Rico, Puerto Rico'),             ('RI, Rhode Island, Isla de Rode'),          ('SC, South Carolina, Carolina del Sur'),
     ('SD, South Dakota, Dakota del Sur'),         ('TN, Tennessee, Tenesí'),                   ('TX, Texas, Texas'),
     ('TT, Trust Territories, Trust Territories'), ('UT, Utah, Utah'),                          ('VT, Vermont, Vermont'),
@@ -50,7 +50,7 @@ BEGIN
     DECLARE @Abbreviation varchar(2) = SUBSTRING(@State, 1, 2);     -- Abbreviation will always be two characters
     DECLARE @Displays NVARCHAR(MAX) = RIGHT(@State, LEN(@State) - 4);   -- All 'English, Spanish' start at Index 4
     DECLARE @English NVARCHAR(MAX) = SUBSTRING(@Displays, 1, CHARINDEX(', ', @Displays, 0) - 1);    --English will be from beginning to ', ' 
-    DECLARE @Spanish NVARCHAR(MAX) = RIGHT(@Displays, LEN(@Displays) - CHARINDEX(', ', @Displays, 0));  -- Spanish will be after ', ' until the end
+    DECLARE @Spanish NVARCHAR(MAX) = RIGHT(@Displays, LEN(@Displays) - CHARINDEX(', ', @Displays, 0) - 1);  -- Spanish will be after ', ' until the end
     PRINT('Checking ' + @STATE)
     -- Insert State If Not Exists
     If NOT EXISTS( SELECT * FROM StateLookup WHERE Abbreviation = @Abbreviation )

@@ -2,10 +2,10 @@
 
 namespace RedRainParks.Domain.Models.AddressModels.Requests
 {
-    public class GetAddressByIdRequest : GetByIdRequest
+    public class GetAddressByIdRequest : LongIdBasedRequest
     {
         public GetAddressByIdRequest() { }
 
-        public GetAddressByIdRequest(int id) : base(id) { }
+        public GetAddressByIdRequest(long id) : base(id) { }
     }
 }

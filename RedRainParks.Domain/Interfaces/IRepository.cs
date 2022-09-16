@@ -6,6 +6,8 @@
 
     public interface IStateLookupRepository : IRepository { }
 
+    public interface IUsedGuidsRepository : IRepository { }
+
     #endregion
 
     #region RepositoryBase

@@ -2,7 +2,7 @@
 
 namespace RedRainParks.Domain.Models.AddressModels.Requests
 {
-    public class GetAddressByGuidRequest : GetByGuidRequest
+    public class GetAddressByGuidRequest : GuidBasedRequest
     {
         public GetAddressByGuidRequest()
         {
@@ -15,8 +15,5 @@ namespace RedRainParks.Domain.Models.AddressModels.Requests
         public GetAddressByGuidRequest(Guid? guid) : base(guid)
         {
         }
-
-        public string Language { get; set; } = Enum.GetName(Enums.StateDisplay.English)!;
-
     }
 }

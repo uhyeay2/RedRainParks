@@ -2,7 +2,7 @@
 
 namespace RedRainParks.Domain.Models.BaseModels.BaseRequests
 {
-    public class GetByStringRequest : IValidatable
+    public class StringBasedRequest : IValidatable
     {
         public string? RequestString { get; set; }
 

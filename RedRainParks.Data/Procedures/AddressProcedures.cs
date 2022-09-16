@@ -10,6 +10,10 @@ namespace RedRainParks.Data.Procedures
 
         public static readonly string GetByGuid = $"SELECT {DTOProperties.Address} {_fromAddressJoinStateLookupOnStateId} WHERE Address.Guid = @Guid";
 
+        public static readonly string UpdateById = $"UPDATE Address SET {SharedSql.Coalesce(DTOProperties.AddressUpdateableFields)} WHERE Address.Id = @Id";
+
+        public static readonly string DeleteById = $"DELETE FROM Address WHERE Id = @Id";
+
         public const string Insert = "PROC_INSERT_Address";
     }
 }

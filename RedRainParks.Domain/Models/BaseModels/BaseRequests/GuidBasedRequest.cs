@@ -1,26 +1,27 @@
-﻿using RedRainParks.Domain.Interfaces;
+﻿using RedRainParks.Domain.Extensions;
+using RedRainParks.Domain.Interfaces;
 
 namespace RedRainParks.Domain.Models.BaseRequests
 {
-    public abstract class GetByGuidRequest : IValidatable
+    public abstract class GuidBasedRequest : IValidatable
     {
         public Guid? Guid { get; set; }
 
-        public GetByGuidRequest() { }
+        public GuidBasedRequest() { }
 
-        public GetByGuidRequest(string guid)
+        public GuidBasedRequest(string guid)
         {
             Guid = System.Guid.TryParse(guid, out var g) ? g : System.Guid.Empty;
         }
 
-        public GetByGuidRequest(Guid? guid)
+        public GuidBasedRequest(Guid? guid)
         {
             Guid = guid;
         }
 
         public bool IsValid(out string failedValidationMessage)
         {
-            if (Guid == null || Guid == System.Guid.Empty)
+            if (Guid.IsNullOrEmpty())
             {
                 failedValidationMessage = $"Invalid Guid Received! Guid: {Guid}";
                 return false;

@@ -21,14 +21,14 @@ namespace RedRainParks.Domain.Tests.Extensions
 
         [Test, TestCaseSource(nameof(NullOrEmptyIEnumerables))]
         public void AggregateWithCommas_Given_EmptyArray_Should_ReturnEmptyString(IEnumerable<string> nullOrEmpty) =>
-            Assert.That(nullOrEmpty.AggregateDTOPropertiesForSelect(), Is.Empty);
+            Assert.That(nullOrEmpty.AggregateWithCommas(), Is.Empty);
 
         [Test, TestCaseSource(nameof(AggregateWithCommasExpectedOutput))]
         public void AggregateWithCommas_Given_ValidStrings_Should_ReturnStringsAggregated(IEnumerable<string> strings, string expected) =>
-            Assert.That(strings.AggregateDTOPropertiesForSelect(), Is.EqualTo(expected));
+            Assert.That(strings.AggregateWithCommas(), Is.EqualTo(expected));
 
         [Test]
         public void AggregateWithCommas_Given_OnlyOneString_Should_NotAddComma() =>
-            Assert.That(new string[] { "One String" }.AggregateDTOPropertiesForSelect(), Is.EqualTo("One String"));
+            Assert.That(new string[] { "One String" }.AggregateWithCommas(), Is.EqualTo("One String"));
     }
 }

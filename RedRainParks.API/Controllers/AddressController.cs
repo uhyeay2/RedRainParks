@@ -19,22 +19,28 @@ namespace RedRainParks.API.Controllers
         }
 
         [HttpPost("GetByGuid")]
-        public async Task<BaseResponse> GetByGuidAsync(GetAddressByGuidRequest request) =>
-            request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage) ? new BaseResponse(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage) 
-                : new GetAddressByGuidResponse(await _repo.FetchAsync<GetAddressByGuidRequest, AddressDTO>(new GetAddressByGuidRequest(request.Guid)), request.Language);
-
-
-        [HttpPost("Insert")]
-        public async Task<BaseResponse> InsertAsync(InsertAddressRequest request)
+        public async Task<GetAddressByGuidResponse> GetByGuidAsync([FromHeader] string guid, string stateDisplay = "English")
         {
-            if(request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
-            {
-                return new BaseResponse(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
-            }
+            var request = new GetAddressByGuidRequest(guid);
 
-            await _repo.ExecuteAsync(request);
+            return request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage) ?
+                new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage) 
+                : new (await _repo.FetchAsync<GetAddressByGuidRequest, AddressDTO>(request), stateDisplay);
+        }            
+            
+        [HttpPost("Insert")]
+        public async Task<ExecutionResponse> InsertAsync(InsertAddressRequest request) => request is IValidatable validatable && 
+            !validatable.IsValid(out var failedValidationMessage) ? new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
+                : new( await _repo.ExecuteAsync(request));
 
-            return new BaseResponse();
-        }
+        [HttpPost("Update")]
+        public async Task<ExecutionResponse> UpdateAsync(UpdateAddressByIdRequest request) => request is IValidatable validatable && 
+            !validatable.IsValid(out var failedValidationMessage) ? new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
+                : new(await _repo.ExecuteAsync(request));
+
+        [HttpDelete("Delete")]
+        public async Task<ExecutionResponse> DeleteAsync(DeleteAddressByIdRequest request) => request is IValidatable validatable &&
+            !validatable.IsValid(out var failedValidationMessage) ? new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
+                : new(await _repo.ExecuteAsync(request));
     }
 }

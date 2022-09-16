@@ -16,5 +16,9 @@ namespace RedRainParks.Domain.Models.AddressModels.Responses
             }
             Address = new Address(address, stateDisplay.GetDisplayOrDefault());
         }
+
+        public GetAddressByGuidResponse(int statusCode, string? exceptionMessage, bool isException = true) : base(statusCode, exceptionMessage, isException)
+        {
+        }
     }
 }

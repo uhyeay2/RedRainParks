@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RedRainParks.Domain.Interfaces;
-using RedRainParks.Domain.Models.BaseModels;
 using RedRainParks.Domain.Models.StateModels;
 using RedRainParks.Domain.Models.StateModels.Requests;
 using RedRainParks.Domain.Models.StateModels.Responses;
@@ -19,16 +18,19 @@ namespace RedRainParks.API.Controllers
         }
 
         [HttpPost("GetByIdOrAbbreviation")]
-        public async Task<BaseResponse> GetByIdOrAbbreviationAsync(string request)
+        public async Task<GetStateLookupResponse> GetByIdOrAbbreviationAsync(string request)
         {
-            var req = int.TryParse(request, out var id) ? new GetStateEitherByIdOrAbbreviation(id) : new GetStateEitherByIdOrAbbreviation(request);
+            GetStateEitherByIdOrAbbreviation req = int.TryParse(request, out var id) ? new (id) : new (request);
 
-            if(req is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
-            {
-                return new BaseResponse(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
-            }
+            return req is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage) ?
+                new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
+                : new (await _repo.FetchAsync<GetStateEitherByIdOrAbbreviation, StateLookupDTO>(req));            
+        }
 
-            return new GetStateLookupResponse(await _repo.FetchAsync<GetStateEitherByIdOrAbbreviation, StateLookupDTO>(req));            
-        } 
+        [HttpGet("All")]
+        public async Task<GetAllStateLookupResponse> GetAllAsync() => new (await _repo.FetchListAsync<GetAllStateLookupRequest, StateLookupDTO>(new()));
+
+        [HttpGet("IsValidId")]
+        public async Task<IsValidStateLookupIdResponse> IsValidStateLookupIdResponse(int id) => new ((await GetByIdOrAbbreviationAsync($"{id}"))?.State != null);
     }
 }

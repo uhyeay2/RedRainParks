@@ -7,14 +7,16 @@ namespace RedRainParks.Data
     /// and the function that translates our Request object into the parameters for SQL
     /// </summary>
     /// <typeparam name="TRequest"></typeparam>
-    internal class SqlAndSqlParamsFuncMap<TRequest>
+    public class SqlAndSqlParamsFuncMap<TRequest>
     {
         #region Constructor
+
         public SqlAndSqlParamsFuncMap(string procNameorInlineSql, Func<TRequest, object> generateSqlParamsFunc)
         {
             _procNameOrInlineSql = procNameorInlineSql;
             _generateSqlParamsFunc = generateSqlParamsFunc;
         }
+
         #endregion
 
         #region Private Members
@@ -38,9 +40,9 @@ namespace RedRainParks.Data
         #region Helper Methods
 
         /// <summary>
-        /// Return true if ProcNameOrInlineSql has "PROC" in it.
+        /// Return true if the value of ProcNameOrInlineSql starts with proc.
         /// </summary>
-        private bool IsForStoredProcRequest => ProcNameOrInlineSql.StartsWith(Constants.KeyWords.ProcKeyword);
+        private bool IsForStoredProcRequest => ProcNameOrInlineSql.StartsWith(Constants.KeyWords.ProcKeyword, StringComparison.OrdinalIgnoreCase);
 
         #endregion
     }

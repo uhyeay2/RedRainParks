@@ -1,10 +1,10 @@
 ﻿using RedRainParks.Domain.Interfaces;
+using RedRainParks.Domain.Models.BaseRequests;
 
 namespace RedRainParks.Domain.Models.AddressModels.Requests
 {
-    public class InsertAddressRequest : IValidatable
+    public class InsertAddressRequest : GuidBasedRequest, IValidatable
     {
-        public Guid Guid { get; set; }
 
         public string Line1 { get; set; }
 
@@ -16,7 +16,7 @@ namespace RedRainParks.Domain.Models.AddressModels.Requests
         
         public string PostalCode { get; set; }
 
-        public InsertAddressRequest(Guid guid, string line1, string line2, string city, int stateId, string postalCode)
+        public InsertAddressRequest(Guid guid, string line1, string line2, string city, int stateId, string postalCode) : base(guid)
         {
             Guid = guid;
             Line1 = line1;
@@ -24,17 +24,6 @@ namespace RedRainParks.Domain.Models.AddressModels.Requests
             City = city;
             StateId = stateId;
             PostalCode = postalCode;
-        }
-
-        public bool IsValid(out string failedValidationMessage)
-        {
-            if(Guid == Guid.Empty)
-            {
-                failedValidationMessage = "Invalid Request! Must provide a Guid";
-                return false;
-            }
-            failedValidationMessage = String.Empty;
-            return true;
         }
     }
 }

@@ -2,9 +2,12 @@
 
 namespace RedRainParks.Data.Procedures
 {
-    internal static class StateProcedures
+    internal static class StateLookupProcedures
     {
-        public static string GetByEitherIdOrAbbreviation = @$"SELECT {DTOProperties.StateLookup} FROM StateLookup 
-            WHERE (@Id IS NULL OR ID = @ID) AND ( @Abbreviation IS NULL OR Abbreviation = @Abbreviation )";
+        private static string _selectStateLookup = $"SELECT {DTOProperties.StateLookup} FROM StateLookup";
+
+        public static string GetAll => _selectStateLookup;
+
+        public static string GetByEitherIdOrAbbreviation = $"{_selectStateLookup} {SharedSql.WhereEither("Id", "Abbreviation")}";
     }
 }
