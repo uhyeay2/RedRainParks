@@ -52,7 +52,7 @@ namespace RedRainParks.API.Controllers
                 return new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
 
             if (!await _stateLookupRepo.FetchAsync<IsValidStateLookupIdRequest, bool>(new(request.State.GetValueOrDefault())))
-                return new(Domain.Constants.StatusCodes.BadRequest_400, $"Invalid StateId Provided! No State Found With Id: {request.State}");
+                return new(Domain.Constants.StatusCodes.NotFound_404, $"Invalid StateId Provided! No State Found With Id: {request.State}");
 
             return new(await _addressRepo.ExecuteAsync(request));
         } 

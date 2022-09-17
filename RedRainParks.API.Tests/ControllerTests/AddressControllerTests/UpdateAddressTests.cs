@@ -11,12 +11,24 @@ namespace RedRainParks.API.Tests.ControllerTests.AddressControllerTests
             Assert.That((await _controller.UpdateAsync(new(0, "Line1", "Line2", "City", state:1, "Postal"))).StatusCode, Is.EqualTo(400));
 
         [Test, Description("BadRequest - StateLookupId")]
-        public async Task InsertAddress_Given_InvalidStateLookupId_Should_ReturnStatusCode400()
+        public async Task UpdateAddress_Given_InvalidStateLookupId_Should_ReturnStatusCode404()
         {
             _mockedStateRepo.Setup(_ => _.FetchAsync<IsValidStateLookupIdRequest, bool>(It.IsNotNull<IsValidStateLookupIdRequest>())).Returns(Task.FromResult(false));
 
-            Assert.That((await _controller.UpdateAsync(new(1, "Line1", "Line2", "City", state: 1, "Postal"))).StatusCode, Is.EqualTo(400));
+            Assert.That((await _controller.UpdateAsync(new(1, "Line1", "Line2", "City", state: 1, "Postal"))).StatusCode, Is.EqualTo(404));
         }
+
+        public static object[] UpdateRequestsToClearRequiredFields = 
+        {
+            new UpdateAddressByIdRequest(1, "", "Line2", "City", state: 1, "Postal"),
+            new UpdateAddressByIdRequest(1, "       ", "Line2", "City", state: 1, "Postal"),
+            new UpdateAddressByIdRequest(1, "Line1", "Line2", "", state: 1, "Postal"),
+            new UpdateAddressByIdRequest(1, "Line1", "Line2", "     ", state: 1, "Postal"),
+        };
+
+        [Test, Description("BadRequest - Cannot Clear Required Fields"), TestCaseSource(nameof(UpdateRequestsToClearRequiredFields))]        
+        public async Task UpdateAddress_Given_RequiredFieldIsEmptyString_Should_ReturnStatusCode400(UpdateAddressByIdRequest request) =>
+            Assert.That((await _controller.UpdateAsync(request)).StatusCode, Is.EqualTo(400));
 
         [Test, Description("BadRequest - Not Found")]
         public async Task UpdateAddress_Given_NoAddressUpdated_Should_ReturnStatusCode404()

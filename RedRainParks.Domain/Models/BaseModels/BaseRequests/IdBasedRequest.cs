@@ -36,7 +36,7 @@ namespace RedRainParks.Domain.Models.BaseRequests
 
         public LongIdBasedRequest() { }
 
-        public bool IsValid(out string failedValidationMessage)
+        public virtual bool IsValid(out string failedValidationMessage)
         {
             if (Id <= 0)
             {
