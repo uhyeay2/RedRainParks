@@ -1,4 +1,4 @@
-﻿namespace RedRainParks.Domain.Models.BaseModels
+﻿namespace RedRainParks.Domain.Models.BaseModels.BaseRequests
 {
     public class Either<TLeft, TRight>
     {

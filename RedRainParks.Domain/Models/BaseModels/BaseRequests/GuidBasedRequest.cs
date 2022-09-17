@@ -19,7 +19,7 @@ namespace RedRainParks.Domain.Models.BaseRequests
             Guid = guid;
         }
 
-        public bool IsValid(out string failedValidationMessage)
+        public virtual bool IsValid(out string failedValidationMessage)
         {
             if (Guid.IsNullOrEmpty())
             {

@@ -8,6 +8,8 @@ namespace RedRainParks.Data.Procedures
 
         public static string GetAll => _selectStateLookup;
 
+        public static string IsValidId => $"SELECT {SharedSql.Exists("StateLookup", "Id = @Id")}";
+
         public static string GetByEitherIdOrAbbreviation = $"{_selectStateLookup} {SharedSql.WhereEither("Id", "Abbreviation")}";
     }
 }

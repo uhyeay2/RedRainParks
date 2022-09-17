@@ -17,20 +17,33 @@ namespace RedRainParks.API.Controllers
             _repo = repo;
         }
 
-        [HttpPost("GetByIdOrAbbreviation")]
-        public async Task<GetStateLookupResponse> GetByIdOrAbbreviationAsync(string request)
-        {
-            GetStateEitherByIdOrAbbreviation req = int.TryParse(request, out var id) ? new (id) : new (request);
+        [HttpGet("AllStates")]
+        public async Task<GetAllStateLookupResponse> GetAllAsync() => new(await _repo.FetchListAsync<GetAllStateLookupRequest, StateLookupDTO>(new()));
 
-            return req is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage) ?
-                new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
-                : new (await _repo.FetchAsync<GetStateEitherByIdOrAbbreviation, StateLookupDTO>(req));            
+        [HttpPost("GetByIdOrAbbreviation")]
+        public async Task<GetStateLookupResponse> GetByIdOrAbbreviationAsync(string idOrAbbreviation)
+        {
+            GetStateEitherByIdOrAbbreviation request = int.TryParse(idOrAbbreviation, out var id) ? new (id) : new (idOrAbbreviation);
+
+            if(request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
+            {
+                return new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
+            }
+
+            return new (await _repo.FetchAsync<GetStateEitherByIdOrAbbreviation, StateLookupDTO>(request));            
         }
 
-        [HttpGet("All")]
-        public async Task<GetAllStateLookupResponse> GetAllAsync() => new (await _repo.FetchListAsync<GetAllStateLookupRequest, StateLookupDTO>(new()));
-
         [HttpGet("IsValidId")]
-        public async Task<IsValidStateLookupIdResponse> IsValidStateLookupIdResponse(int id) => new ((await GetByIdOrAbbreviationAsync($"{id}"))?.State != null);
+        public async Task<IsValidStateLookupIdResponse> IsValidStateLookupId(int id) 
+        {
+            var request = new IsValidStateLookupIdRequest(id);
+
+            if(request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
+            {
+                return new IsValidStateLookupIdResponse(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
+            }
+
+            return new(await _repo.FetchAsync<IsValidStateLookupIdRequest, bool>(request));
+        }
     }
 }

@@ -8,6 +8,8 @@ namespace RedRainParks.Data.Procedures
 
         public static string Delete(string table, string where) => $"DELETE FROM {table} WHERE {where}";
 
+        public static string Exists(string table, string condition, string column = "*") => $"CASE WHEN EXISTS(SELECT {column} FROM {table} WHERE {condition}) THEN 1 ELSE 0 END";
+
         /// <summary>
         /// Return a string representing WHERE condition - Example:
         /// $"WHERE ({column1} = {param1} OR {param1} IS NULL) AND ({column2} = {param2} OR {param2} IS NULL)"

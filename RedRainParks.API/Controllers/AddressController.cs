@@ -4,6 +4,7 @@ using RedRainParks.Domain.Models.AddressModels;
 using RedRainParks.Domain.Models.AddressModels.Requests;
 using RedRainParks.Domain.Models.AddressModels.Responses;
 using RedRainParks.Domain.Models.BaseModels;
+using RedRainParks.Domain.Models.StateModels.Requests;
 
 namespace RedRainParks.API.Controllers
 {
@@ -11,11 +12,13 @@ namespace RedRainParks.API.Controllers
     [Route("[controller]")]
     public class AddressController
     {
-        private readonly IAddressRepository _repo;
+        private readonly IAddressRepository _addressRepo;
+        private readonly IStateLookupRepository _stateLookupRepo;
 
-        public AddressController(IAddressRepository repo)
+        public AddressController(IAddressRepository addressRepo, IStateLookupRepository stateLookupRepo)
         {
-            _repo = repo;
+            _addressRepo = addressRepo;
+            _stateLookupRepo = stateLookupRepo;
         }
 
         [HttpPost("GetByGuid")]
@@ -23,24 +26,33 @@ namespace RedRainParks.API.Controllers
         {
             var request = new GetAddressByGuidRequest(guid);
 
-            return request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage) ?
-                new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage) 
-                : new (await _repo.FetchAsync<GetAddressByGuidRequest, AddressDTO>(request), stateDisplay);
+            if (request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
+                return new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
+
+            return new (await _addressRepo.FetchAsync<GetAddressByGuidRequest, AddressDTO>(request), stateDisplay);
         }            
             
         [HttpPost("Insert")]
-        public async Task<ExecutionResponse> InsertAsync(InsertAddressRequest request) => request is IValidatable validatable && 
-            !validatable.IsValid(out var failedValidationMessage) ? new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
-                : new( await _repo.ExecuteAsync(request));
+        public async Task<ExecutionResponse> InsertAsync(InsertAddressRequest request)
+        {
+            if (request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
+                return new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
+
+            if (!await _stateLookupRepo.FetchAsync<IsValidStateLookupIdRequest, bool>(new(request.StateId)))
+                return new(Domain.Constants.StatusCodes.BadRequest_400, $"Invalid StateId Provided! No State Found With Id: {request.StateId}");
+
+            return new( await _addressRepo.ExecuteAsync(request));
+        }
+        
 
         [HttpPost("Update")]
         public async Task<ExecutionResponse> UpdateAsync(UpdateAddressByIdRequest request) => request is IValidatable validatable && 
             !validatable.IsValid(out var failedValidationMessage) ? new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
-                : new(await _repo.ExecuteAsync(request));
+                : new(await _addressRepo.ExecuteAsync(request));
 
         [HttpDelete("Delete")]
         public async Task<ExecutionResponse> DeleteAsync(DeleteAddressByIdRequest request) => request is IValidatable validatable &&
             !validatable.IsValid(out var failedValidationMessage) ? new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
-                : new(await _repo.ExecuteAsync(request));
+                : new(await _addressRepo.ExecuteAsync(request));
     }
 }

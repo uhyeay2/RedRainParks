@@ -10,5 +10,9 @@ namespace RedRainParks.Domain.Models.StateModels.Responses
         {
             IsValid = isValid;
         }
+
+        public IsValidStateLookupIdResponse(int statusCode, string? exceptionMessage, bool isException = true) : base(statusCode, exceptionMessage, isException)
+        {
+        }
     }
 }

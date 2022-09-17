@@ -18,6 +18,9 @@ namespace RedRainParks.Data.Repositories
                 },
                 {
                     typeof(GetAllStateLookupRequest), new SqlAndSqlParamsFuncMap<GetAllStateLookupRequest>(StateLookupProcedures.GetAll, null!)
+                },
+                {
+                    typeof(IsValidStateLookupIdRequest), new SqlAndSqlParamsFuncMap<IsValidStateLookupIdRequest>(StateLookupProcedures.IsValidId, requestObj => new { requestObj.Id })
                 }
             };
         }

@@ -2,11 +2,11 @@
 {
     public class ExecutionResponse : BaseResponse
     {
-        public int RowsChanged { get; set; }
+        public int RowsAffected { get; set; }
 
-        public ExecutionResponse(int rowsChanged) : base()
+        public ExecutionResponse(int rowsAffected) : base()
         {
-            RowsChanged = rowsChanged;
+            RowsAffected = rowsAffected;
         }
 
         public ExecutionResponse(int statusCode, string? exceptionMessage, bool isException = true) : base(statusCode, exceptionMessage, isException)
