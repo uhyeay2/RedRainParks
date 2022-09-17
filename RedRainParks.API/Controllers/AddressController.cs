@@ -43,12 +43,19 @@ namespace RedRainParks.API.Controllers
 
             return new( await _addressRepo.ExecuteAsync(request));
         }
-        
+
 
         [HttpPost("Update")]
-        public async Task<ExecutionResponse> UpdateAsync(UpdateAddressByIdRequest request) => request is IValidatable validatable && 
-            !validatable.IsValid(out var failedValidationMessage) ? new (Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
-                : new(await _addressRepo.ExecuteAsync(request));
+        public async Task<ExecutionResponse> UpdateAsync(UpdateAddressByIdRequest request) 
+        {
+            if (request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
+                return new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
+
+            if (!await _stateLookupRepo.FetchAsync<IsValidStateLookupIdRequest, bool>(new(request.State.GetValueOrDefault())))
+                return new(Domain.Constants.StatusCodes.BadRequest_400, $"Invalid StateId Provided! No State Found With Id: {request.State}");
+
+            return new(await _addressRepo.ExecuteAsync(request));
+        } 
 
         [HttpDelete("Delete")]
         public async Task<ExecutionResponse> DeleteAsync(DeleteAddressByIdRequest request) => request is IValidatable validatable &&

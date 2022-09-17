@@ -7,7 +7,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
     {
         protected readonly Mock<IConfig> _mockedConfig = new();
 
-        protected abstract IRepository _repo { get; set; }
+        protected abstract IRepository Repository { get; set; }
 
         public BaseRepositoryTest()
         {

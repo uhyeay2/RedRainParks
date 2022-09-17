@@ -5,12 +5,12 @@ namespace RedRainParks.Domain.Tests.Extensions
     [TestFixture]
     public class StringArrayExtensionTests
     {
-        public static object[] NullOrEmptyIEnumerables =
+        public static readonly object[] NullOrEmptyIEnumerables =
         {
             Array.Empty<string>(), Enumerable.Empty<string>(), new List<string>(), null!
         };
 
-        public static object[] AggregateWithCommasExpectedOutput =
+        public static readonly object[] AggregateWithCommasExpectedOutput =
         {
             new object[] { new string[] { "a", "b", "c" }, "a, b, c" },
             new object[] { new string[] { "1", "2", "3" }, "1, 2, 3" },

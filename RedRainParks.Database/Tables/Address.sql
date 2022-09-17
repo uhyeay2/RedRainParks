@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Address] (
     [Id]                   BIGINT           IDENTITY (1, 1) NOT NULL,
-    [Guid]                 UNIQUEIDENTIFIER NOT NULL,
+    [Guid]                 UNIQUEIDENTIFIER UNIQUE NOT NULL,
     [Line1]                NVARCHAR (MAX)   NULL,
     [Line2]                NVARCHAR (MAX)   NULL,
     [City]                 NVARCHAR (MAX)   NULL,

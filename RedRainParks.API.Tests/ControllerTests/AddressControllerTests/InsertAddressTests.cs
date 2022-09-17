@@ -1,4 +1,5 @@
 ﻿using Moq;
+using RedRainParks.Domain.Models.AddressModels.Requests;
 using RedRainParks.Domain.Models.StateModels.Requests;
 
 namespace RedRainParks.API.Tests.ControllerTests.AddressControllerTests
@@ -21,6 +22,8 @@ namespace RedRainParks.API.Tests.ControllerTests.AddressControllerTests
         public async Task InsertAddress_Given_ValidStateId_Should_ReturnStatusCode200()
         {
             _mockedStateRepo.Setup(_ => _.FetchAsync<IsValidStateLookupIdRequest, bool>(It.IsNotNull<IsValidStateLookupIdRequest>())).Returns(Task.FromResult(true));
+
+            _mockedAddressRepo.Setup(_ => _.ExecuteAsync(It.IsAny<InsertAddressRequest>())).Returns(Task.FromResult(1));
 
             Assert.That((await _controller.InsertAsync(new(Guid.NewGuid(), "Line1", "Line2", "City", stateId: 1, "Postal"))).StatusCode, Is.EqualTo(200));
         }
