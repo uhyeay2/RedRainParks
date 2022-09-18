@@ -16,7 +16,7 @@ namespace RedRainParks.Data.Procedures
         public static string Insert(string table, (string databaseName, string parameterName)[] columns) => 
             $"INSERT INTO {table} ({columns.Select(c=> c.databaseName).AggregateWithCommas()}) VALUES ({columns.Select(c => $"@{c.parameterName}").AggregateWithCommas()})";
 
-        public static string Exists(string table, string condition, string column = "*") => $"CASE WHEN EXISTS(SELECT {column} FROM {table} WHERE {condition}) THEN 1 ELSE 0 END";
+        public static string SelectExists(string table, string condition, string column = "*") => $"SELECT CASE WHEN EXISTS(SELECT {column} FROM {table} WHERE {condition}) THEN 1 ELSE 0 END";
 
         /// <summary>
         /// Return a string representing WHERE condition - Example:

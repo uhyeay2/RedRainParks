@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[ParkLocations]
+(
+	[Id] INT PRIMARY KEY CLUSTERED IDENTITY (1, 1) NOT NULL,
+	[Guid] UNIQUEIDENTIFIER UNIQUE NOT NULL,
+	[ParkCode] VARCHAR(15) NOT NULL,
+	[Name] VARCHAR(MAX) NOT NULL,
+	[IsActive] TINYINT DEFAULT(1) NOT NULL,
+    [CreatedAtDateInUTC]   DATETIME2 (7)    DEFAULT (getutcdate()) NOT NULL,
+    [LastUpdatedDateInUTC] DATETIME2 (7)    NULL
+)
