@@ -13,8 +13,6 @@ namespace RedRainParks.Data.Tests.RepositoryTests
 
         protected override IRepository Repository { get ; set ; }
 
-        private readonly Guid _testGuid = Guid.NewGuid();
-
         private readonly InsertAddressRequest _defaultInsertRequest;
 
         #endregion
@@ -26,18 +24,6 @@ namespace RedRainParks.Data.Tests.RepositoryTests
             Repository = new AddressRepository(_mockedConfig.Object);
 
             _defaultInsertRequest = new(_testGuid, "AddressLine1", "AddressLine2", "City", 1, "32073");
-        }
-
-        #endregion
-
-        #region Teardown
-
-        [TearDown]
-        public async Task TearDownAsync()
-        {
-            var testAddress = await Repository.FetchAsync<GetAddressByGuidRequest, AddressDTO>(new(_testGuid));
-
-            if(testAddress != null) await Repository.ExecuteAsync(new DeleteAddressByIdRequest(testAddress.Id));
         }
 
         #endregion

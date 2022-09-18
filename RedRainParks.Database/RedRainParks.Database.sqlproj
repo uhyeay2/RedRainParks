@@ -73,6 +73,7 @@
     <Build Include="dbo\Tables\StateLookup.sql" />
     <Build Include="dbo\Tables\UsedGuid.sql" />
     <Build Include="dbo\Tables\ParkLocation.sql" />
+    <Build Include="dbo\Tables\ParkLocationAddress.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />

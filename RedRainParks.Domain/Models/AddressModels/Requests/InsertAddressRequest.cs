@@ -1,5 +1,4 @@
-﻿using RedRainParks.Domain.Interfaces;
-using RedRainParks.Domain.Models.BaseRequests;
+﻿using RedRainParks.Domain.Models.BaseRequests;
 
 namespace RedRainParks.Domain.Models.AddressModels.Requests
 {

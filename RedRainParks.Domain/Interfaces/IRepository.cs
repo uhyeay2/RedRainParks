@@ -8,6 +8,8 @@
 
     public interface IUsedGuidsRepository : IRepository { }
 
+    public interface IParkLocationRepository : IRepository { }
+
     #endregion
 
     #region RepositoryBase

@@ -8,12 +8,9 @@ namespace RedRainParks.Data.Tests.RepositoryTests
     {
         protected override IRepository Repository { get; set; }
 
-        private readonly Guid _testGuid;
-
         public UsedGuidsRepositoryTests()
         {
             Repository = new UsedGuidsRepository(_mockedConfig.Object);
-            _testGuid = Guid.NewGuid();
         }
 
         [Test]
