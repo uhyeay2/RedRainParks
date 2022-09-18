@@ -1,13 +1,19 @@
-﻿namespace RedRainParks.Domain.Models.StateModels
+﻿using RedRainParks.Domain.Attributes;
+
+namespace RedRainParks.Domain.Models.StateModels
 {
     public class StateLookupDTO
     {
-        public int StateLookup_Id { get; set; }
+        [Fetchable]
+        public int Id { get; set; }
 
-        public string StateLookup_Abbreviation { get; set; } = string.Empty;
+        [Fetchable]
+        public string Abbreviation { get; set; } = string.Empty;
 
-        public string? StateLookup_EnglishDisplay { get; set; }
+        [Fetchable]
+        public string? EnglishDisplay { get; set; }
 
-        public string? StateLookup_SpanishDisplay { get; set; }
+        [Fetchable]
+        public string? SpanishDisplay { get; set; }
     }
 }

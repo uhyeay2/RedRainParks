@@ -1,10 +1,16 @@
-﻿using RedRainParks.Domain.Constants;
+﻿using RedRainParks.Domain.Extensions;
+using RedRainParks.Domain.Models.StateModels;
 
 namespace RedRainParks.Data.Procedures
 {
+    internal static class StateLookupProperties
+    {
+        public static readonly (string DatabaseName, string PropertyName)[] StateLookup = typeof(StateLookupDTO).GetSqlPropertyNames();
+    }
+
     internal static class StateLookupProcedures
     {
-        private static string _selectStateLookup = $"SELECT {DTOProperties.StateLookup} FROM StateLookup WITH(NOLOCK)";
+        private static string _selectStateLookup = $"{SharedSql.Select(StateLookupProperties.StateLookup)} FROM StateLookup WITH(NOLOCK)";
 
         public static string GetAll => _selectStateLookup;
 

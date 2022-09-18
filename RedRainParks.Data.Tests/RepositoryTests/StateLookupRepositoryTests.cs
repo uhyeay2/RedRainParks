@@ -13,10 +13,10 @@ namespace RedRainParks.Data.Tests.RepositoryTests
         // This should match a record from Database StateLookupDTO table
         public readonly StateLookupDTO _testDTO = new()
         {
-            StateLookup_Id = 10,
-            StateLookup_Abbreviation = "DC",
-            StateLookup_EnglishDisplay = "District of Columbia",
-            StateLookup_SpanishDisplay = "Distrito Federal de Columbia"
+            Id = 10,
+            Abbreviation = "DC",
+            EnglishDisplay = "District of Columbia",
+            SpanishDisplay = "Distrito Federal de Columbia"
         };
 
         public StateLookupRepositoryTests()
@@ -33,7 +33,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
 
         [Test]
         public async Task IsValidStateLookupId_Given_StateDoesExists_Should_ReturnTrue() =>
-            Assert.That(await Repository.FetchAsync<IsValidStateLookupIdRequest, bool>(new(_testDTO.StateLookup_Id)), Is.True);
+            Assert.That(await Repository.FetchAsync<IsValidStateLookupIdRequest, bool>(new(_testDTO.Id)), Is.True);
 
         #endregion
 
@@ -42,32 +42,32 @@ namespace RedRainParks.Data.Tests.RepositoryTests
         [Test]
         public async Task GetStateEitherByIdOrAbbreviation_GivenId_Should_ReturnStateDetails()
         {
-            var fetchedRecord = await Repository.FetchAsync<GetStateEitherByIdOrAbbreviation, StateLookupDTO>(new(_testDTO.StateLookup_Id));
+            var fetchedRecord = await Repository.FetchAsync<GetStateEitherByIdOrAbbreviation, StateLookupDTO>(new(_testDTO.Id));
 
             Assert.That(fetchedRecord, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(fetchedRecord.StateLookup_Id, Is.EqualTo(_testDTO.StateLookup_Id));
-                Assert.That(fetchedRecord.StateLookup_Abbreviation, Is.EqualTo(_testDTO.StateLookup_Abbreviation));
-                Assert.That(fetchedRecord.StateLookup_EnglishDisplay, Is.EqualTo(_testDTO.StateLookup_EnglishDisplay));
-                Assert.That(fetchedRecord.StateLookup_SpanishDisplay, Is.EqualTo(_testDTO.StateLookup_SpanishDisplay));
+                Assert.That(fetchedRecord.Id, Is.EqualTo(_testDTO.Id));
+                Assert.That(fetchedRecord.Abbreviation, Is.EqualTo(_testDTO.Abbreviation));
+                Assert.That(fetchedRecord.EnglishDisplay, Is.EqualTo(_testDTO.EnglishDisplay));
+                Assert.That(fetchedRecord.SpanishDisplay, Is.EqualTo(_testDTO.SpanishDisplay));
             });
         }
 
         [Test]
         public async Task GetStateEitherByIdOrAbbreviation_GivenAbbreviation_Should_ReturnStateDetails()
         {
-            var fetchedRecord = await Repository.FetchAsync<GetStateEitherByIdOrAbbreviation, StateLookupDTO>(new(_testDTO.StateLookup_Abbreviation));
+            var fetchedRecord = await Repository.FetchAsync<GetStateEitherByIdOrAbbreviation, StateLookupDTO>(new(_testDTO.Abbreviation));
 
             Assert.That(fetchedRecord, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(fetchedRecord.StateLookup_Id, Is.EqualTo(_testDTO.StateLookup_Id));
-                Assert.That(fetchedRecord.StateLookup_Abbreviation, Is.EqualTo(_testDTO.StateLookup_Abbreviation));
-                Assert.That(fetchedRecord.StateLookup_EnglishDisplay, Is.EqualTo(_testDTO.StateLookup_EnglishDisplay));
-                Assert.That(fetchedRecord.StateLookup_SpanishDisplay, Is.EqualTo(_testDTO.StateLookup_SpanishDisplay));
+                Assert.That(fetchedRecord.Id, Is.EqualTo(_testDTO.Id));
+                Assert.That(fetchedRecord.Abbreviation, Is.EqualTo(_testDTO.Abbreviation));
+                Assert.That(fetchedRecord.EnglishDisplay, Is.EqualTo(_testDTO.EnglishDisplay));
+                Assert.That(fetchedRecord.SpanishDisplay, Is.EqualTo(_testDTO.SpanishDisplay));
             });
         }
 

@@ -8,7 +8,7 @@ namespace RedRainParks.Domain.Models.StateModels.Responses
 
         public GetAllStateLookupResponse(IEnumerable<StateLookupDTO> states)
         {
-            States = states.Select(s => new StateLookup(s.StateLookup_Abbreviation, s.StateLookup_EnglishDisplay, s.StateLookup_SpanishDisplay));
+            States = states.Select(s => new StateLookup(s.Abbreviation, s.EnglishDisplay, s.SpanishDisplay));
         }
     }
 }

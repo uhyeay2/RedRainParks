@@ -15,7 +15,7 @@
             SpanishDisplay = spanishDisplay ?? string.Empty;
         }
 
-        public StateLookup(StateLookupDTO dto) : this(dto.StateLookup_Abbreviation, dto.StateLookup_EnglishDisplay, dto.StateLookup_SpanishDisplay)
+        public StateLookup(StateLookupDTO dto) : this(dto.Abbreviation, dto.EnglishDisplay, dto.SpanishDisplay)
         {
         }
     }
