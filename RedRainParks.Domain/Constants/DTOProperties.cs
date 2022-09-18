@@ -13,7 +13,5 @@ namespace RedRainParks.Domain.Constants
         public static readonly string[] AddressUpdateableFields = typeof(UpdateAddressByIdRequest).GetColumnNamesWithAttribute<UpdatableAttribute>().ToArray();
 
         public static readonly string StateLookup = typeof(StateLookupDTO).GetPropertyNamesForSelect();
-
-        public static readonly string ExceptionLogInsertableFields = typeof(StateLookupDTO).GetPropertyNamesForSelect();
     }
 }
