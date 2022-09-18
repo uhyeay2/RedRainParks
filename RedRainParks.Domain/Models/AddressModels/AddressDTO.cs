@@ -1,4 +1,6 @@
-﻿namespace RedRainParks.Domain.Models.AddressModels
+﻿using RedRainParks.Domain.Attributes;
+
+namespace RedRainParks.Domain.Models.AddressModels
 {
     public class AddressDTO
     {
@@ -9,45 +11,54 @@
 
         public AddressDTO(long address_Id, Guid address_Guid, DateTime address_CreatedAtDateInUTC, DateTime? address_LastUpdatedDateInUTC, string? address_Line1, string? address_Line2, string? address_City, int? address_StateId, string? address_PostalCode, int stateLookup_Id, string? stateLookup_Abbreviation, string? stateLookup_EnglishDisplay, string? stateLookup_SpanishDisplay)
         {
-            Address_Id = address_Id;
-            Address_Guid = address_Guid;
-            Address_CreatedAtDateInUTC = address_CreatedAtDateInUTC;
-            Address_LastUpdatedDateInUTC = address_LastUpdatedDateInUTC;
-            Address_Line1 = address_Line1;
-            Address_Line2 = address_Line2;
-            Address_City = address_City;
-            Address_StateId = address_StateId;
-            Address_PostalCode = address_PostalCode;
-            StateLookup_Id = stateLookup_Id;
-            StateLookup_Abbreviation = stateLookup_Abbreviation;
-            StateLookup_EnglishDisplay = stateLookup_EnglishDisplay;
-            StateLookup_SpanishDisplay = stateLookup_SpanishDisplay;
+            Id = address_Id;
+            Guid = address_Guid;
+            CreatedAtDateInUTC = address_CreatedAtDateInUTC;
+            LastUpdatedDateInUTC = address_LastUpdatedDateInUTC;
+            Line1 = address_Line1;
+            Line2 = address_Line2;
+            City = address_City;
+            StateId = address_StateId;
+            PostalCode = address_PostalCode;
+            StateAbbreviation = stateLookup_Abbreviation;
+            StateEnglishDisplay = stateLookup_EnglishDisplay;
+            StateSpanishDisplay = stateLookup_SpanishDisplay;
         }
 
-        public long Address_Id { get; set; }
+        [Fetchable("Address.Id")]
+        public long Id { get; set; }
 
-        public Guid Address_Guid { get; set; }
+        [Fetchable]
+        public Guid Guid { get; set; }
 
-        public DateTime Address_CreatedAtDateInUTC { get; set; }
+        [Fetchable]
+        public DateTime CreatedAtDateInUTC { get; set; }
 
-        public DateTime? Address_LastUpdatedDateInUTC { get; set; }
+        [Fetchable]
+        public DateTime? LastUpdatedDateInUTC { get; set; }
 
-        public string? Address_Line1 { get; set; }
+        [Fetchable]
+        public string? Line1 { get; set; }
 
-        public string? Address_Line2 { get; set; }
+        [Fetchable]
+        public string? Line2 { get; set; }
 
-        public string? Address_City { get; set; }
+        [Fetchable]
+        public string? City { get; set; }
 
-        public int? Address_StateId { get; set; }
+        [Fetchable]
+        public int? StateId { get; set; }
 
-        public string? Address_PostalCode { get; set; }
+        [Fetchable]
+        public string? PostalCode { get; set; }
 
-        public int StateLookup_Id { get; set; }
+        [Fetchable("StateLookup.Abbreviation")]
+        public string? StateAbbreviation { get; set; }
 
-        public string? StateLookup_Abbreviation { get; set; }
+        [Fetchable("StateLookup.EnglishDisplay")]
+        public string? StateEnglishDisplay { get; set; }
 
-        public string? StateLookup_EnglishDisplay { get; set; }
-
-        public string? StateLookup_SpanishDisplay { get; set; }
+        [Fetchable("StateLookup.SpanishDisplay")]
+        public string? StateSpanishDisplay { get; set; }
     }
 }

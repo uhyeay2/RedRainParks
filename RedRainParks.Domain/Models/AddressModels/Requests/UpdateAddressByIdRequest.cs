@@ -1,4 +1,4 @@
-﻿using RedRainParks.Data.Attributes;
+﻿using RedRainParks.Domain.Attributes;
 using RedRainParks.Domain.Models.BaseRequests;
 
 namespace RedRainParks.Domain.Models.AddressModels.Requests
@@ -14,19 +14,19 @@ namespace RedRainParks.Domain.Models.AddressModels.Requests
             PostalCode = postalCode;
         }
 
-        [Updatable()]
+        [Updatable]
         public string? Line1 { get; set; }
 
-        [Updatable()]
+        [Updatable]
         public string? Line2 { get; set; }
 
-        [Updatable()]
+        [Updatable]
         public string? City { get; set; }
 
         [Updatable("StateId")]
         public int? State { get; set; }
 
-        [Updatable()]
+        [Updatable]
         public string? PostalCode { get; set; }
 
         public override bool IsValid(out string failedValidationMessage)

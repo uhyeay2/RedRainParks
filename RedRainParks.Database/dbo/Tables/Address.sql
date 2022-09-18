@@ -6,7 +6,7 @@
     [City]                 NVARCHAR (MAX)   NULL,
     [StateId]              INT              NULL,
     [PostalCode]           NVARCHAR (10)    NULL,
-    [CreatedAtDateInUTC]   DATETIME2 (7)    DEFAULT (getutcdate()) NULL,
+    [CreatedAtDateInUTC]   DATETIME2 (7)    DEFAULT (getutcdate()) NOT NULL,
     [LastUpdatedDateInUTC] DATETIME2 (7)    NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );

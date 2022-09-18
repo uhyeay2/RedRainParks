@@ -8,6 +8,8 @@ namespace RedRainParks.Data.Procedures
 
         public static string Delete(string table, string where) => $"DELETE FROM {table} WHERE {where}";
 
+        public static string Insert(string table, string[] columns) => $"INSERT INTO {table} ({columns.AggregateWithCommas}) VALUES ({columns.Select(c => $"@{c}").AggregateWithCommas()}";
+
         public static string Exists(string table, string condition, string column = "*") => $"CASE WHEN EXISTS(SELECT {column} FROM {table} WHERE {condition}) THEN 1 ELSE 0 END";
 
         /// <summary>

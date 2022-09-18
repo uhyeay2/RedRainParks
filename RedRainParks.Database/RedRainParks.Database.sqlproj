@@ -72,6 +72,7 @@
     <Build Include="dbo\Tables\Address.sql" />
     <Build Include="dbo\Tables\StateLookup.sql" />
     <Build Include="dbo\Tables\UsedGuids.sql" />
+    <Build Include="dbo\Tables\ExceptionLog.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
@@ -81,9 +82,9 @@
   <ItemGroup>
     <PreDeploy Include="Scripts\Pre-Deployment\Script.PreDeployment.sql" />
   </ItemGroup>
-	<ItemGroup>
-		<PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
-	</ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />

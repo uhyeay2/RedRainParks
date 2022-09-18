@@ -11,7 +11,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
 
         public BaseRepositoryTest()
         {
-            _mockedConfig.Setup(_ => _.GetConnectionString(It.IsAny<string>())).Returns(Constants.TestDbConnectionString);
+            _mockedConfig.Setup(_ => _.GetConnectionString(It.IsAny<string>())).Returns(Hidden.TestEnvDatabaseConnectionString);
         }
     }
 }

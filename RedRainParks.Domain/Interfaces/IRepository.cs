@@ -8,6 +8,8 @@
 
     public interface IUsedGuidsRepository : IRepository { }
 
+    public interface ILoggingRepository : IRepository { }
+
     #endregion
 
     #region RepositoryBase

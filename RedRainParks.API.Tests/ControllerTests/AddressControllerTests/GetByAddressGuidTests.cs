@@ -24,10 +24,10 @@ namespace RedRainParks.API.Tests.ControllerTests.AddressControllerTests
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Address!.StreetLine1, Is.EqualTo(_testDto!.Address_Line1));
-                Assert.That(result.Address!.StreetLine2, Is.EqualTo(_testDto!.Address_Line2));
-                Assert.That(result.Address!.City, Is.EqualTo(_testDto!.Address_City));
-                Assert.That(result.Address!.PostalCode, Is.EqualTo(_testDto!.Address_PostalCode));
+                Assert.That(result.Address!.StreetLine1, Is.EqualTo(_testDto!.Line1));
+                Assert.That(result.Address!.StreetLine2, Is.EqualTo(_testDto!.Line2));
+                Assert.That(result.Address!.City, Is.EqualTo(_testDto!.City));
+                Assert.That(result.Address!.PostalCode, Is.EqualTo(_testDto!.PostalCode));
             });
         }
 
@@ -39,7 +39,7 @@ namespace RedRainParks.API.Tests.ControllerTests.AddressControllerTests
 
             var result = await _controller.GetByGuidAsync(Guid.NewGuid().ToString(), "English");
 
-            Assert.That(result.Address!.State, Is.EqualTo(_testDto!.StateLookup_EnglishDisplay));
+            Assert.That(result.Address!.State, Is.EqualTo(_testDto!.StateEnglishDisplay));
         }
 
         [Test, Description("Fetch State Spanish Translation")]
@@ -50,7 +50,7 @@ namespace RedRainParks.API.Tests.ControllerTests.AddressControllerTests
 
             var result = await _controller.GetByGuidAsync(Guid.NewGuid().ToString(), "Spanish");
 
-            Assert.That(result.Address!.State, Is.EqualTo(_testDto!.StateLookup_SpanishDisplay));
+            Assert.That(result.Address!.State, Is.EqualTo(_testDto!.StateSpanishDisplay));
         }
 
         [Test, Description("Fetch State Abbreviated")]
@@ -61,7 +61,7 @@ namespace RedRainParks.API.Tests.ControllerTests.AddressControllerTests
 
             var result = await _controller.GetByGuidAsync(Guid.NewGuid().ToString(), "Abr");
 
-            Assert.That(result.Address!.State, Is.EqualTo(_testDto!.StateLookup_Abbreviation));
+            Assert.That(result.Address!.State, Is.EqualTo(_testDto!.StateAbbreviation));
         }
     }
 }

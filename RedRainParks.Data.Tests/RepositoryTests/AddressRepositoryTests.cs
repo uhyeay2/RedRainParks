@@ -37,7 +37,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
         {
             var testAddress = await Repository.FetchAsync<GetAddressByGuidRequest, AddressDTO>(new(_testGuid));
 
-            if(testAddress != null) await Repository.ExecuteAsync(new DeleteAddressByIdRequest(testAddress.Address_Id));
+            if(testAddress != null) await Repository.ExecuteAsync(new DeleteAddressByIdRequest(testAddress.Id));
         }
 
         #endregion
@@ -70,7 +70,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
         {
             var insertedRecord = await InsertAndFetchRecord();
 
-            Assert.That(await Repository.ExecuteAsync(new UpdateAddressByIdRequest(insertedRecord.Address_Id, "Line1", "Line2", "City", state: 10, "Postal")), Is.EqualTo(1));
+            Assert.That(await Repository.ExecuteAsync(new UpdateAddressByIdRequest(insertedRecord.Id, "Line1", "Line2", "City", state: 10, "Postal")), Is.EqualTo(1));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
             var insertedRecord = await InsertAndFetchRecord();
 
             // Update Record
-            await Repository.ExecuteAsync(new UpdateAddressByIdRequest(insertedRecord.Address_Id, "", "", "", state: null, ""));
+            await Repository.ExecuteAsync(new UpdateAddressByIdRequest(insertedRecord.Id, "", "", "", state: null, ""));
 
             var updatedRecord = await Repository.FetchAsync<GetAddressByGuidRequest, AddressDTO>(new(_testGuid));
 
@@ -87,10 +87,10 @@ namespace RedRainParks.Data.Tests.RepositoryTests
 
             Assert.Multiple(() =>
             {
-                Assert.That(updatedRecord.Address_Line1, Is.Empty);
-                Assert.That(updatedRecord.Address_Line2, Is.Empty);
-                Assert.That(updatedRecord.Address_City, Is.Empty);
-                Assert.That(updatedRecord.Address_PostalCode, Is.Empty);
+                Assert.That(updatedRecord.Line1, Is.Empty);
+                Assert.That(updatedRecord.Line2, Is.Empty);
+                Assert.That(updatedRecord.City, Is.Empty);
+                Assert.That(updatedRecord.PostalCode, Is.Empty);
             });
         }
 
@@ -99,7 +99,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
         {
             var insertedRecord = await InsertAndFetchRecord();
 
-            var updateRequest = new UpdateAddressByIdRequest(insertedRecord.Address_Id, "UpdatedAddressLine1", "UpdatedAddressLine2", "UpdatedCity", state: 25, "12321");
+            var updateRequest = new UpdateAddressByIdRequest(insertedRecord.Id, "UpdatedAddressLine1", "UpdatedAddressLine2", "UpdatedCity", state: 25, "12321");
 
             // Update Record
             await Repository.ExecuteAsync(updateRequest);
@@ -110,11 +110,11 @@ namespace RedRainParks.Data.Tests.RepositoryTests
 
             Assert.Multiple(() =>
             {
-                Assert.That(updatedRecord.Address_Line1, Is.EqualTo(updateRequest.Line1));
-                Assert.That(updatedRecord.Address_Line2, Is.EqualTo(updateRequest.Line2));
-                Assert.That(updatedRecord.Address_City, Is.EqualTo(updateRequest.City));
-                Assert.That(updatedRecord.Address_StateId, Is.EqualTo(updateRequest.State));
-                Assert.That(updatedRecord.Address_PostalCode, Is.EqualTo(updateRequest.PostalCode));
+                Assert.That(updatedRecord.Line1, Is.EqualTo(updateRequest.Line1));
+                Assert.That(updatedRecord.Line2, Is.EqualTo(updateRequest.Line2));
+                Assert.That(updatedRecord.City, Is.EqualTo(updateRequest.City));
+                Assert.That(updatedRecord.StateId, Is.EqualTo(updateRequest.State));
+                Assert.That(updatedRecord.PostalCode, Is.EqualTo(updateRequest.PostalCode));
             });
         }
 
@@ -124,7 +124,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
             var insertedRecord = await InsertAndFetchRecord();
 
             // Update Record
-            await Repository.ExecuteAsync(new UpdateAddressByIdRequest(insertedRecord.Address_Id, null, null, null, null, null));
+            await Repository.ExecuteAsync(new UpdateAddressByIdRequest(insertedRecord.Id, null, null, null, null, null));
 
             var updatedRecord = await Repository.FetchAsync<GetAddressByGuidRequest, AddressDTO>(new(_testGuid));
 
@@ -132,11 +132,11 @@ namespace RedRainParks.Data.Tests.RepositoryTests
 
             Assert.Multiple(() =>
             {
-                Assert.That(updatedRecord.Address_Line1, Is.EqualTo(insertedRecord.Address_Line1));
-                Assert.That(updatedRecord.Address_Line2, Is.EqualTo(insertedRecord.Address_Line2));
-                Assert.That(updatedRecord.Address_City, Is.EqualTo(insertedRecord.Address_City));
-                Assert.That(updatedRecord.Address_StateId, Is.EqualTo(insertedRecord.Address_StateId));
-                Assert.That(updatedRecord.Address_PostalCode, Is.EqualTo(insertedRecord.Address_PostalCode));
+                Assert.That(updatedRecord.Line1, Is.EqualTo(insertedRecord.Line1));
+                Assert.That(updatedRecord.Line2, Is.EqualTo(insertedRecord.Line2));
+                Assert.That(updatedRecord.City, Is.EqualTo(insertedRecord.City));
+                Assert.That(updatedRecord.StateId, Is.EqualTo(insertedRecord.StateId));
+                Assert.That(updatedRecord.PostalCode, Is.EqualTo(insertedRecord.PostalCode));
             });
         }
 
@@ -153,7 +153,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
         {
             var insertedRecord = await InsertAndFetchRecord();
 
-            Assert.That(await Repository.ExecuteAsync(new DeleteAddressByIdRequest(insertedRecord.Address_Id)), Is.EqualTo(1));
+            Assert.That(await Repository.ExecuteAsync(new DeleteAddressByIdRequest(insertedRecord.Id)), Is.EqualTo(1));
         }
 
         [Test]
@@ -162,7 +162,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
             var insertedRecord = await InsertAndFetchRecord();
 
             // Delete Record
-            await Repository.ExecuteAsync(new DeleteAddressByIdRequest(insertedRecord.Address_Id));
+            await Repository.ExecuteAsync(new DeleteAddressByIdRequest(insertedRecord.Id));
 
             Assert.That(await Repository.FetchAsync<GetAddressByGuidRequest, AddressDTO>(new(_testGuid)), Is.Null);
         }
@@ -178,23 +178,23 @@ namespace RedRainParks.Data.Tests.RepositoryTests
 
             Assert.Multiple(() =>
             {
-                Assert.That(insertedRecord.StateLookup_Id, Is.EqualTo(_defaultInsertRequest.StateId));
-                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateLookup_Abbreviation));
-                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateLookup_EnglishDisplay));
-                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateLookup_SpanishDisplay));
+                Assert.That(insertedRecord.StateId, Is.EqualTo(_defaultInsertRequest.StateId));
+                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateAbbreviation));
+                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateEnglishDisplay));
+                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateSpanishDisplay));
             });
 
             // Fetch Inserted Record By Id
-            insertedRecord = await Repository.FetchAsync<GetAddressByIdRequest, AddressDTO>(new(insertedRecord.Address_Id));
+            insertedRecord = await Repository.FetchAsync<GetAddressByIdRequest, AddressDTO>(new(insertedRecord.Id));
 
             Assert.That(insertedRecord, Is.Not.Null);
 
             Assert.Multiple(() =>
             {
-                Assert.That(insertedRecord.StateLookup_Id, Is.EqualTo(_defaultInsertRequest.StateId));
-                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateLookup_Abbreviation));
-                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateLookup_EnglishDisplay));
-                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateLookup_SpanishDisplay));
+                Assert.That(insertedRecord.StateId, Is.EqualTo(_defaultInsertRequest.StateId));
+                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateAbbreviation));
+                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateEnglishDisplay));
+                Assert.That(!string.IsNullOrWhiteSpace(insertedRecord.StateSpanishDisplay));
             });
         }
 

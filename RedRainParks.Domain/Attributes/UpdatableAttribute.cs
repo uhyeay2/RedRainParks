@@ -1,16 +1,12 @@
-﻿namespace RedRainParks.Data.Attributes
+﻿namespace RedRainParks.Domain.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class UpdatableAttribute : Attribute
+    public class UpdatableAttribute : SqlPropertyIdentiferAttribute
     {
-        public string? CustomColumnName { get; set; } = null;
-
-        public UpdatableAttribute(string customColumnName)
+        public UpdatableAttribute()
         {
-            CustomColumnName = customColumnName;
         }
 
-        public UpdatableAttribute()
+        public UpdatableAttribute(string specifiedColumnName) : base(specifiedColumnName)
         {
         }
     }

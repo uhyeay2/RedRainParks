@@ -23,8 +23,8 @@ namespace RedRainParks.Domain.Models.AddressModels
             State = state ?? string.Empty;
         }
 
-        public Address(AddressDTO address, StateDisplay stateDisplay) : this(address.Address_Line1, address.Address_Line2, address.Address_City, 
-            stateDisplay.GetDisplayByLanguage(address.StateLookup_Abbreviation, address.StateLookup_EnglishDisplay, address.StateLookup_SpanishDisplay), address.Address_PostalCode)  
+        public Address(AddressDTO address, StateDisplay stateDisplay) : this(address.Line1, address.Line2, address.City, 
+            stateDisplay.GetDisplayByLanguage(address.StateAbbreviation, address.StateEnglishDisplay, address.StateSpanishDisplay), address.PostalCode)  
         {
         }
     }
