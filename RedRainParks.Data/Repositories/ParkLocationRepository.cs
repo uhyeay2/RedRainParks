@@ -10,12 +10,14 @@ namespace RedRainParks.Data.Repositories
         {
             _inputAndTargetSqlMappings = new()
             {
-                { typeof(GetParkAddressesByIdOrParkCodeRequest), new SqlAndSqlParamsFuncMap<GetParkAddressesByIdOrParkCodeRequest>(
-                ParkLocationProcedures.GetParkAddressesByIdOrParkCode, requestObj => new {requestObj.Left, requestObj.Right}) },
+                { typeof(GetParkAddressesByIdOrParkCodeRequest), new SqlAndSqlParamsFuncMap<GetParkAddressesByIdOrParkCodeRequest>(ParkLocationProcedures.GetAddressesByIdOrParkCode,
+                requestObj => new { Id = requestObj.IsLeft? requestObj.Left : null, ParkCode = !requestObj.IsLeft ? requestObj.Right : null}) },
 
                 {typeof(InsertParkLocationRequest), new SqlAndSqlParamsFuncMap<InsertParkLocationRequest>(ParkLocationProcedures.InsertParkLocation,
-                requestObj => new { requestObj.Guid, requestObj.ParkCode, requestObj.Name, requestObj.IsActive }) }
+                requestObj => new { requestObj.Guid, requestObj.ParkCode, requestObj.Name, requestObj.IsActive }) },
 
+                { typeof(GetParkLocationByIdOrParkCodeRequest), new SqlAndSqlParamsFuncMap<GetParkLocationByIdOrParkCodeRequest>(ParkLocationProcedures.GetLocationByIdOrParkCode, 
+                requestObj => new { Id = requestObj.IsLeft? requestObj.Left : null, ParkCode = !requestObj.IsLeft ? requestObj.Right : null}) },
             };
         }
 

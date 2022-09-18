@@ -12,6 +12,9 @@ namespace RedRainParks.Data.Procedures
         public static string Delete(string table, string where) => $"DELETE FROM {table} WHERE {where}";
 
         public static string Select((string databaseName, string parameterName)[] columns) => $"SELECT {columns.Select(c => $"{c.databaseName} AS {c.parameterName}").AggregateWithCommas()} ";
+        
+        public static string Select((string databaseName, string parameterName)[] columns, string from, string where = "", string orderBy = "") => 
+            "SELECT " + columns.Select(c => $"{c.databaseName} AS {c.parameterName}").AggregateWithCommas() + $" {from} {where} {orderBy}";
 
         public static string Insert(string table, (string databaseName, string parameterName)[] columns) => 
             $"INSERT INTO {table} ({columns.Select(c=> c.databaseName).AggregateWithCommas()}) VALUES ({columns.Select(c => $"@{c.parameterName}").AggregateWithCommas()})";

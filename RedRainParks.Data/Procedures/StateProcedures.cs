@@ -10,12 +10,13 @@ namespace RedRainParks.Data.Procedures
 
     internal static class StateLookupProcedures
     {
-        private static string _selectFromStateLookup = SharedSql.Select(StateLookupProperties.StateLookup) + " FROM StateLookup WITH(NOLOCK)";
+        private static string _selectFromStateLookup = SharedSql.Select(StateLookupProperties.StateLookup, "FROM StateLookup WITH(NOLOCK)");
 
         public static string GetAll => _selectFromStateLookup;
 
         public static string IsValidId => SharedSql.SelectExists("StateLookup", "Id = @Id");
 
-        public static string GetByEitherIdOrAbbreviation = $"{_selectFromStateLookup} {SharedSql.WhereEither("Id", "Abbreviation")}";
+        public static string GetByEitherIdOrAbbreviation = 
+            SharedSql.Select(StateLookupProperties.StateLookup, "FROM StateLookup WITH(NOLOCK)", SharedSql.WhereEither("Id", "Abbreviation"));
     }
 }
