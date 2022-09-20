@@ -43,6 +43,14 @@ namespace RedRainParks.Data.Tests.RepositoryTests
             Assert.That(await Repository.FetchAsync<GetAddressByGuidRequest, AddressDTO>(new(_testGuid)), Is.Not.Null);
         }
 
+        [Test]
+        public async Task InsertAddress_Given_GuidIsNotUnique_Should_ThrowSqlException()
+        {
+            await Repository.ExecuteAsync(_defaultInsertRequest);
+
+            Assert.ThrowsAsync<System.Data.SqlClient.SqlException>(async () => await Repository.ExecuteAsync(_defaultInsertRequest));
+        }
+
         #endregion
 
         #region Update Address Tests

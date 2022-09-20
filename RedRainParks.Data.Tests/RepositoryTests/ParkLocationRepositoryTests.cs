@@ -22,6 +22,14 @@ namespace RedRainParks.Data.Tests.RepositoryTests
         public async Task InsertParkLocation_Given_LocationIsInserted_Should_ReturnOne() =>
             Assert.That(await Repository.ExecuteAsync(_defaultInsertRequest), Is.EqualTo(1));
 
+        [Test]
+        public async Task InsertParkLocation_Given_LocationGuidIsNotUnique_Should_ThrowSqlException()
+        {
+            await Repository.ExecuteAsync(_defaultInsertRequest);
+
+            Assert.ThrowsAsync<System.Data.SqlClient.SqlException>(async () => await Repository.ExecuteAsync(_defaultInsertRequest));
+        }
+
         [Test, Description("Get Park Location - Location Is Found")]
         public async Task GetParkLocation_Given_ValidRequest_Should_ReturnParkLocation()
         {

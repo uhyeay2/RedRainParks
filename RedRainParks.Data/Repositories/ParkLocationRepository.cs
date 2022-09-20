@@ -17,7 +17,7 @@ namespace RedRainParks.Data.Repositories
                 requestObj => new { requestObj.Guid, requestObj.ParkCode, requestObj.Name, requestObj.IsActive }) },
 
                 { typeof(GetParkLocationByIdOrParkCodeRequest), new SqlAndSqlParamsFuncMap<GetParkLocationByIdOrParkCodeRequest>(ParkLocationProcedures.GetLocationByIdOrParkCode, 
-                requestObj => new { Id = requestObj.IsLeft? requestObj.Left : null, ParkCode = !requestObj.IsLeft ? requestObj.Right : null}) },
+                requestObj => new { Id = requestObj.IsLeft? requestObj.Left : null,  ParkCode = !requestObj.IsLeft ? requestObj.Right : null }) },
             };
         }
 
