@@ -9,5 +9,10 @@ namespace RedRainParks.Domain.Extensions
                 .Select(p => ((Attribute.GetCustomAttribute(p, typeof(SqlPropertyIdentiferAttribute)) as SqlPropertyIdentiferAttribute)!
                     .SpecifiedColumnName ?? p.Name, p.Name))
                         .ToArray() ?? Array.Empty<(string, string)>();
+
+        public static IEnumerable<(string PropertyName, TPropertyIdentifier Attribute)> GetSqlProperties<TPropertyIdentifier>(this Type type) where TPropertyIdentifier : SqlPropertyIdentiferAttribute =>
+            type.GetProperties().Where(c => c.CustomAttributes.Any(a => a.AttributeType == typeof(TPropertyIdentifier)))?
+                .Select(p => (p.Name, (Attribute.GetCustomAttribute(p, typeof(TPropertyIdentifier)) as TPropertyIdentifier)!))
+                    ?? Enumerable.Empty<(string, TPropertyIdentifier)>();
     }
 }

@@ -2,8 +2,14 @@
 
 namespace RedRainParks.Domain.Models.AddressModels
 {
+    [FetchQuery(
+        table: "Address WITH(NOLOCK)", 
+        join: "LEFT JOIN StateLookup WITH(NOLOCK) ON Address.StateId = StateLookup.Id", 
+        where: "Address.Id = @Id"
+    )]
     public class AddressDTO
     {
+        #region Constructors 
         public AddressDTO()
         {
 
@@ -24,6 +30,10 @@ namespace RedRainParks.Domain.Models.AddressModels
             StateEnglishDisplay = stateLookup_EnglishDisplay;
             StateSpanishDisplay = stateLookup_SpanishDisplay;
         }
+
+        #endregion
+
+        #region Fields From Address Table
 
         [Fetchable("Address.Id")]
         public long Id { get; set; }
@@ -52,6 +62,10 @@ namespace RedRainParks.Domain.Models.AddressModels
         [Fetchable]
         public string? PostalCode { get; set; }
 
+        #endregion
+
+        #region Fields From StateLookup Table
+
         [Fetchable("StateLookup.Abbreviation")]
         public string? StateAbbreviation { get; set; }
 
@@ -60,5 +74,8 @@ namespace RedRainParks.Domain.Models.AddressModels
 
         [Fetchable("StateLookup.SpanishDisplay")]
         public string? StateSpanishDisplay { get; set; }
+
+        #endregion
+
     }
 }

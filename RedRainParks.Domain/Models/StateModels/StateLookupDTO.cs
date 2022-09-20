@@ -2,6 +2,7 @@
 
 namespace RedRainParks.Domain.Models.StateModels
 {
+    [FetchQuery("StateLookup WITH(NOLOCK)")]
     public class StateLookupDTO
     {
         [Fetchable]

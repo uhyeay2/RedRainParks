@@ -1,5 +1,6 @@
 ﻿using RedRainParks.Data.Procedures;
 using RedRainParks.Domain.Interfaces;
+using RedRainParks.Domain.Models.AddressModels;
 using RedRainParks.Domain.Models.AddressModels.Requests;
 
 namespace RedRainParks.Data.Repositories
@@ -12,9 +13,11 @@ namespace RedRainParks.Data.Repositories
         {
             _inputAndTargetSqlMappings = new()
             {
-                { typeof(GetAddressByIdRequest), new SqlAndSqlParamsFuncMap<GetAddressByIdRequest>(AddressProcedures.GetById, requestObj => new { requestObj.Id }) },
+                { typeof(GetAddressByIdRequest), new SqlAndSqlParamsFuncMap<GetAddressByIdRequest>(
+                    SqlGenerator.Fetch(typeof(AddressDTO)), requestObj => new { requestObj.Id }) },
 
-                { typeof(GetAddressByGuidRequest), new SqlAndSqlParamsFuncMap<GetAddressByGuidRequest>(AddressProcedures.GetByGuid, requestObj => new { requestObj.Guid }) },
+                { typeof(GetAddressByGuidRequest), new SqlAndSqlParamsFuncMap<GetAddressByGuidRequest>(
+                    SqlGenerator.Fetch(typeof(AddressDTO), whereOverride: "WHERE Address.Guid = @Guid"), requestObj => new { requestObj.Guid }) },
 
                 { typeof(InsertAddressRequest), new SqlAndSqlParamsFuncMap<InsertAddressRequest>(AddressProcedures.Insert,
                 requestObj => new {requestObj.Guid, requestObj.Line1, requestObj.Line2, requestObj.City, requestObj.StateId, requestObj.PostalCode}) },
