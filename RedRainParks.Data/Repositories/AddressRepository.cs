@@ -1,4 +1,4 @@
-﻿using RedRainParks.Data.Procedures;
+﻿using RedRainParks.Domain.Extensions;
 using RedRainParks.Domain.Interfaces;
 using RedRainParks.Domain.Models.AddressModels;
 using RedRainParks.Domain.Models.AddressModels.Requests;
@@ -13,11 +13,9 @@ namespace RedRainParks.Data.Repositories
         {
             _inputAndTargetSqlMappings = new()
             {
-                { typeof(GetAddressByIdRequest), new SqlAndSqlParamsFuncMap<GetAddressByIdRequest>(
-                    SqlGenerator.Fetch(typeof(AddressDTO)), requestObj => new { requestObj.Id }) },
+                { typeof(GetAddressByIdRequest), new SqlAndSqlParamsFuncMap<GetAddressByIdRequest>(AddressProcedures.GetById, requestObj => new { requestObj.Id }) },
 
-                { typeof(GetAddressByGuidRequest), new SqlAndSqlParamsFuncMap<GetAddressByGuidRequest>(
-                    SqlGenerator.Fetch(typeof(AddressDTO), whereOverride: "WHERE Address.Guid = @Guid"), requestObj => new { requestObj.Guid }) },
+                { typeof(GetAddressByGuidRequest), new SqlAndSqlParamsFuncMap<GetAddressByGuidRequest>(AddressProcedures.GetByGuid, requestObj => new { requestObj.Guid }) },
 
                 { typeof(InsertAddressRequest), new SqlAndSqlParamsFuncMap<InsertAddressRequest>(AddressProcedures.Insert,
                 requestObj => new {requestObj.Guid, requestObj.Line1, requestObj.Line2, requestObj.City, requestObj.StateId, requestObj.PostalCode}) },
@@ -28,5 +26,19 @@ namespace RedRainParks.Data.Repositories
                 { typeof(DeleteAddressByIdRequest), new SqlAndSqlParamsFuncMap<DeleteAddressByIdRequest>(AddressProcedures.DeleteById, requestObj => new { requestObj.Id }) }
             };
         }
+
+        #region Procedures
+
+        private static readonly string GetById = SqlGenerator.Fetch(typeof(AddressDTO));
+
+        private static readonly string GetByGuid = SqlGenerator.Fetch(typeof(AddressDTO), whereOverride: "WHERE Address.Guid = @Guid");
+
+        private static readonly string UpdateById = SharedSql.CoalesceUpdate("Address", typeof(UpdateAddressByIdRequest).GetSqlPropertyNames(), "Address.Id = @Id");
+
+        private static readonly string DeleteById = SharedSql.Delete("Address", "Id = @Id");
+
+        private const string Insert = "PROC_INSERT_Address";
+
+        #endregion
     }
 }

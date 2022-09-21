@@ -26,5 +26,8 @@ namespace RedRainParks.Data
 
             return $"SELECT {itemsToSelect} FROM {queryDetails.Table} {join} {where}";
         }
+
+
+
     }
 }

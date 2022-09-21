@@ -11,10 +11,20 @@ namespace RedRainParks.Data.Repositories
         {
             _inputAndTargetSqlMappings = new()
             {
-                { typeof(DoesGuidExistRequest), new SqlAndSqlParamsFuncMap<DoesGuidExistRequest>(UsedGuidProcedures.DoesGuidExist, requestObj => new {requestObj.Guid}) },
-                { typeof(InsertGuidRequest), new SqlAndSqlParamsFuncMap<InsertGuidRequest>(UsedGuidProcedures.Insert, requestObj => new {requestObj.Guid}) },
-                { typeof(DeleteGuidRequest), new SqlAndSqlParamsFuncMap<DeleteGuidRequest>(UsedGuidProcedures.Delete, requestObj => new {requestObj.Guid}) },
+                { typeof(DoesGuidExistRequest), new SqlAndSqlParamsFuncMap<DoesGuidExistRequest>(DoesGuidExist, requestObj => new {requestObj.Guid}) },
+                { typeof(InsertGuidRequest), new SqlAndSqlParamsFuncMap<InsertGuidRequest>(Insert, requestObj => new {requestObj.Guid}) },
+                { typeof(DeleteGuidRequest), new SqlAndSqlParamsFuncMap<DeleteGuidRequest>(Delete, requestObj => new {requestObj.Guid}) },
             };
         }
+
+        #region Procedures
+
+        private const string Insert = "INSERT INTO UsedGuid (UniqueIdentifier) VALUES (@Guid)";
+
+        private static readonly string DoesGuidExist = SharedSql.SelectExists("UsedGuid", "UniqueIdentifier = @Guid");
+
+        private static readonly string Delete = SharedSql.Delete("UsedGuid", "UniqueIdentifier = @Guid");
+
+        #endregion
     }
 }
