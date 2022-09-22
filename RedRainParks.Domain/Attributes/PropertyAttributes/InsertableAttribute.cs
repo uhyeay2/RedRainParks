@@ -7,7 +7,7 @@
             TableName = tableName;
         }
 
-        public InsertableAttribute(string tableName, string specifiedDatabaseName, bool useScopedIdentity, string sqlTypeName = "INT") : this(tableName, specifiedDatabaseName)
+        public InsertableAttribute(string tableName, bool useScopedIdentity, string sqlTypeName = "INT") : this(tableName)
         {
             UseScopedIdentity = useScopedIdentity;
             SqlTypeName = sqlTypeName;

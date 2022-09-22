@@ -46,7 +46,7 @@ namespace RedRainParks.Data.SQL
                 
                 if(propertyAttributes.Any(x => x.Attribute.TableName == r.Table && x.Attribute.UseScopedIdentity))
                 {
-                    var scopedProperty = propertyAttributes.FirstOrDefault(x => x.Attribute.UseScopedIdentity);
+                    var scopedProperty = propertyAttributes.FirstOrDefault(x => x.Attribute.TableName == r.Table && x.Attribute.UseScopedIdentity);
 
                     declareAndSetScopedIdentity = $"DECLARE @{scopedProperty.PropertyName} {scopedProperty.Attribute.SqlTypeName} = SCOPE_IDENTITY() ";
                 }

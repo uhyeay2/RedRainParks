@@ -51,10 +51,10 @@ namespace RedRainParks.Domain.Models.ParkLocationModels.Requests
 
         #region Insert Into ParkLocationAddress
 
-        [Insertable("ParkLocationAddress", "ParkLocationId", "ParkLocation.Id")]
+        [Insertable("ParkLocationAddress", "ParkLocationId", columnNameToFetch: "ParkLocation.Id")]
         private object? ParkLocationId { get; set; } = null;
 
-        [Insertable("ParkLocationAddress", "AddressId", useScopedIdentity: true, SqlTypeName = "BIGINT")]
+        [Insertable("ParkLocationAddress", useScopedIdentity: true, sqlTypeName: "BIGINT")]
         private object? AddressId { get; set; }
 
         [Insertable("ParkLocationAddress")]
