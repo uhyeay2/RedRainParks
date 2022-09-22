@@ -19,8 +19,7 @@ namespace RedRainParks.Data.Tests.RepositoryTests
         }
 
         [Test, Description("Insert ParkLocation Returns 1 When Valid")]
-        public async Task InsertParkLocation_Given_LocationIsInserted_Should_ReturnOne() =>
-            Assert.That(await Repository.ExecuteAsync(_defaultInsertRequest), Is.EqualTo(1));
+        public async Task InsertParkLocation_Given_LocationIsInserted_Should_ReturnOne() => Assert.That(await Repository.ExecuteAsync(_defaultInsertRequest), Is.EqualTo(1));
 
         [Test]
         public async Task InsertParkLocation_Given_LocationGuidIsNotUnique_Should_ThrowSqlException()
@@ -46,5 +45,20 @@ namespace RedRainParks.Data.Tests.RepositoryTests
                 Assert.That(insertedRecord.IsActive, Is.EqualTo(_defaultInsertRequest.IsActive));
             });
         }
+
+        [Test]
+        public async Task InsertParkAddress_Given_ValidRequest_ShouldReturnTwo()
+        {
+            // insert Park Location
+            await Repository.ExecuteAsync(_defaultInsertRequest);
+
+            var insertAddressRequest = new InsertParkAddressRequest(_defaultInsertRequest.ParkCode!, "Main Entrance", isActive: true, rank: 1,
+                addressGuid: Guid.NewGuid(), "Line1", "Line2", "City", stateId: 20, "Postal");
+
+            var recordsInserted = await Repository.ExecuteAsync(insertAddressRequest);
+
+            Assert.That(recordsInserted, Is.EqualTo(2));
+        }
+
     }
 }

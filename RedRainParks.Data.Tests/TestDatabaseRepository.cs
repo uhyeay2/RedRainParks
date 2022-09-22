@@ -28,8 +28,8 @@ namespace RedRainParks.Data.Tests
 
         public async Task ClearTables()
         {
-            await ExecuteAsync(new ClearTable.Address());
             await ExecuteAsync(new ClearTable.ParkLocationAddress());
+            await ExecuteAsync(new ClearTable.Address());
             await ExecuteAsync(new ClearTable.ParkLocation());
             await ExecuteAsync(new ClearTable.UsedGuid());
         }

@@ -1,4 +1,5 @@
 ﻿using RedRainParks.Domain.Attributes;
+using RedRainParks.Domain.Attributes.PropertyAttributes;
 
 namespace RedRainParks.Domain.Models.ParkLocationModels.Requests
 {
@@ -12,16 +13,16 @@ namespace RedRainParks.Domain.Models.ParkLocationModels.Requests
             IsActive = isActive;
         }
 
-        [Insertable]
+        [Insertable("ParkLocation")]
         public Guid Guid { get; set; }
 
-        [Insertable]
+        [Insertable("ParkLocation")]
         public string? ParkCode { get; set; }
 
-        [Insertable]
+        [Insertable("ParkLocation")]
         public string? Name { get; set; }
 
-        [Insertable]
+        [Insertable("ParkLocation")]
         public bool IsActive { get; set; } = true;
     }
 }

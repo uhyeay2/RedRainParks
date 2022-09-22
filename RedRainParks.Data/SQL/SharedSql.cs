@@ -1,6 +1,6 @@
 ﻿using RedRainParks.Domain.Extensions;
 
-namespace RedRainParks.Data
+namespace RedRainParks.Data.SQL
 {
     internal static class SharedSql
     {

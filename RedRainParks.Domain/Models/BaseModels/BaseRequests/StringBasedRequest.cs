@@ -6,7 +6,7 @@ namespace RedRainParks.Domain.Models.BaseModels.BaseRequests
     {
         public string? RequestString { get; set; }
 
-        public bool IsValid(out string failedValidationMessage)
+        public virtual bool IsValid(out string failedValidationMessage)
         {
             if(string.IsNullOrWhiteSpace(RequestString))
             {

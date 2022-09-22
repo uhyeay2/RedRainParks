@@ -1,4 +1,4 @@
-﻿using RedRainParks.Domain.Attributes;
+﻿using RedRainParks.Domain.Attributes.PropertyAttributes;
 
 namespace RedRainParks.Domain.Extensions
 {

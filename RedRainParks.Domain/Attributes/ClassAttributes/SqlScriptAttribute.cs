@@ -1,4 +1,4 @@
-﻿namespace RedRainParks.Domain.Attributes
+﻿namespace RedRainParks.Domain.Attributes.ClassAttributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public abstract class SqlScriptAttribute : Attribute

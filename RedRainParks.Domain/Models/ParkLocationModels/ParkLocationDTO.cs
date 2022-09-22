@@ -1,7 +1,15 @@
-﻿using RedRainParks.Domain.Attributes;
+﻿using RedRainParks.Domain.Attributes.ClassAttributes;
+using RedRainParks.Domain.Attributes.PropertyAttributes;
 
 namespace RedRainParks.Domain.Models.ParkLocationModels
 {
+    [FetchQuery(
+    table: "ParkLocation WITH(NOLOCK)",
+    join:       "LEFT JOIN ParkLocationAddress WITH(NOLOCK) ON ParkLocationAddress.ParkLocationId = ParkLocation.Id " + 
+                "LEFT JOIN Address WITH(NOLOCK) ON ParkLocationAddress.AddressId = Address.Id " +
+                "LEFT JOIN StateLookup WITH(NOLOCK) ON Address.StateId = StateLookup.Id",
+    where: "(ParkLocation.Id = @Id OR @Id IS NULL) AND (ParkLocation.ParkCode = @ParkCode OR @ParkCode IS NULL)",
+    orderBy: "ParkLocationAddress.Rank" )]
     public class ParkLocationDTO
     {
         #region ParkLocation

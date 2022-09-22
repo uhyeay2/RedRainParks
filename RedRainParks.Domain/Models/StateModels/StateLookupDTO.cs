@@ -1,4 +1,5 @@
-﻿using RedRainParks.Domain.Attributes;
+﻿using RedRainParks.Domain.Attributes.ClassAttributes;
+using RedRainParks.Domain.Attributes.PropertyAttributes;
 
 namespace RedRainParks.Domain.Models.StateModels
 {

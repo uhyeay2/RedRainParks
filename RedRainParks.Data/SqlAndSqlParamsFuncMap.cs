@@ -21,9 +21,9 @@ namespace RedRainParks.Data
 
         #region Private Members
 
-        private Func<TRequest, object> _generateSqlParamsFunc;
+        private readonly Func<TRequest, object> _generateSqlParamsFunc;
 
-        private string _procNameOrInlineSql;
+        private readonly string _procNameOrInlineSql;
 
         #endregion
 

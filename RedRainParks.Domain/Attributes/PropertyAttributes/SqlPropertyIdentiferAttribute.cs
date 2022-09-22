@@ -1,4 +1,4 @@
-﻿namespace RedRainParks.Domain.Attributes
+﻿namespace RedRainParks.Domain.Attributes.PropertyAttributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public abstract class SqlPropertyIdentiferAttribute : Attribute

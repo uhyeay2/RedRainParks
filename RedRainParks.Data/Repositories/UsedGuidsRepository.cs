@@ -1,4 +1,4 @@
-﻿using RedRainParks.Data.Procedures;
+﻿using RedRainParks.Data.SQL;
 using RedRainParks.Domain.Interfaces;
 using RedRainParks.Domain.Models.UsedGuidModels.Requests;
 
@@ -12,7 +12,9 @@ namespace RedRainParks.Data.Repositories
             _inputAndTargetSqlMappings = new()
             {
                 { typeof(DoesGuidExistRequest), new SqlAndSqlParamsFuncMap<DoesGuidExistRequest>(DoesGuidExist, requestObj => new {requestObj.Guid}) },
+
                 { typeof(InsertGuidRequest), new SqlAndSqlParamsFuncMap<InsertGuidRequest>(Insert, requestObj => new {requestObj.Guid}) },
+
                 { typeof(DeleteGuidRequest), new SqlAndSqlParamsFuncMap<DeleteGuidRequest>(Delete, requestObj => new {requestObj.Guid}) },
             };
         }
