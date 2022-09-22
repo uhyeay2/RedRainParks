@@ -38,7 +38,9 @@ namespace RedRainParks.Data.Repositories
 
         private static readonly string DeleteById = SharedSql.Delete("Address", "Id = @Id");
 
-        private const string Insert = "PROC_INSERT_Address";
+        private static readonly string Insert = SqlGenerator.Insert(typeof(InsertAddressRequest));
+
+        private const string InsertProc = "PROC_INSERT_Address";
 
         #endregion
     }

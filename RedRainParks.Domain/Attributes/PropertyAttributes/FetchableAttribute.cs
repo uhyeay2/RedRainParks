@@ -6,7 +6,7 @@
         {
         }
 
-        public FetchableAttribute(string specifiedColumnName) : base(specifiedColumnName)
+        public FetchableAttribute(string specifiedDatabaseName) : base(specifiedDatabaseName)
         {
         }
     }

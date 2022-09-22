@@ -1,8 +1,10 @@
 ﻿using RedRainParks.Domain.Attributes;
+using RedRainParks.Domain.Attributes.ClassAttributes;
 using RedRainParks.Domain.Attributes.PropertyAttributes;
 
 namespace RedRainParks.Domain.Models.ParkLocationModels.Requests
 {
+    [InsertQuery("ParkLocation")]
     public class InsertParkLocationRequest
     {
         public InsertParkLocationRequest(Guid guid, string? parkCode, string? name, bool isActive)

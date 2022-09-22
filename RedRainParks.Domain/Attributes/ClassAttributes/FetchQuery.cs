@@ -5,9 +5,8 @@
 
         public string Joins = string.Empty;
 
-        public string? Where { get; set; }
-
-        public string? OrderBy { get; set; }
+        private string? _orderBy;
+        public string OrderBy => string.IsNullOrWhiteSpace(_orderBy) ? string.Empty : "ORDER BY " + _orderBy;
 
         public string? Top { get; set; }
 
@@ -15,9 +14,8 @@
         {
         }
 
-        public FetchQuery(string table, string where) : base(table)
+        public FetchQuery(string table, string where) : base(table, where)
         {
-            Where = where;
         }
 
         public FetchQuery(string table, string join, string where = "") : this(table, where)
@@ -27,9 +25,7 @@
 
         public FetchQuery(string table, string join = "", string where = "", string orderBy = "") : this(table, join, where)
         {
-            OrderBy = orderBy;
+            _orderBy = orderBy;
         }
-
-
     }
 }

@@ -1,12 +1,11 @@
-﻿using RedRainParks.Domain.Attributes;
-using RedRainParks.Domain.Attributes.ClassAttributes;
+﻿using RedRainParks.Domain.Attributes.ClassAttributes;
 using RedRainParks.Domain.Attributes.PropertyAttributes;
 using RedRainParks.Domain.Models.BaseModels.BaseRequests;
 
 namespace RedRainParks.Domain.Models.ParkLocationModels.Requests
 {
     [InsertQuery("Address")]
-    [InsertQuery("ParkLocationAddress", "ParkLocation", where: "ParkLocation.ParkCode = @ParkCode")]
+    [InsertQuery("ParkLocationAddress", from: "ParkLocation", where: "ParkLocation.ParkCode = @ParkCode")]
     public class InsertParkAddressRequest : StringBasedRequest
     {
         public InsertParkAddressRequest(string parkCode, string referenceName, bool isActive, int rank, Guid addressGuid, string line1, string line2, string city, int stateId, string postalCode)
@@ -23,16 +22,14 @@ namespace RedRainParks.Domain.Models.ParkLocationModels.Requests
             PostalCode = postalCode;
         }
 
-
-
         /// <summary>
         /// ParkCode for the ParkLocation that we are inserting an address for.
         /// </summary>
         public string ParkCode { get; set; }
 
-        #region Insert Into Address 
+        #region Insert Into Address
 
-        [Insertable("Address", specifiedColumnName: "Guid")]
+        [Insertable("Address", specifiedDatabaseName: "Guid")]
         public Guid AddressGuid { get; set; }
 
         [Insertable("Address")]
@@ -55,10 +52,10 @@ namespace RedRainParks.Domain.Models.ParkLocationModels.Requests
         #region Insert Into ParkLocationAddress
 
         [Insertable("ParkLocationAddress", "ParkLocationId", "ParkLocation.Id")]
-        public int? ParkLocationId { get; set; } = null;
+        private object? ParkLocationId { get; set; } = null;
 
-        [Insertable("ParkLocationAddress", "AddressId", useScopedIdentity: true, sqlTypeName: "INT")]
-        public int? AddressId { get; set; }
+        [Insertable("ParkLocationAddress", "AddressId", useScopedIdentity: true, SqlTypeName = "BIGINT")]
+        private object? AddressId { get; set; }
 
         [Insertable("ParkLocationAddress")]
         public string ReferenceName { get; set; }
@@ -83,6 +80,5 @@ namespace RedRainParks.Domain.Models.ParkLocationModels.Requests
 
             return isValid;
         }
-
     }
 }

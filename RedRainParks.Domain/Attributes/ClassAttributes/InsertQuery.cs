@@ -7,10 +7,9 @@
         {
         }
 
-        public InsertQuery(string table, string from, string where) : this(table)
+        public InsertQuery(string table, string from, string where) : base(table, where)
         {
             From = from;
-            Where = where;
         }
 
         public bool IsInsertSelectRequest => !string.IsNullOrWhiteSpace(From);
@@ -19,9 +18,6 @@
 
         public string Join { get; set; } = string.Empty;
 
-        public string Where { get; set; } = string.Empty;
-
-        
-
+        public string GetValuesToInsert(string values) => IsInsertSelectRequest ? $"SELECT {values} FROM {From} {Join} {Where} " : $"VALUES ( {values} )";
     }
 }

@@ -5,7 +5,7 @@ namespace RedRainParks.Domain.Models.BaseRequests
 {
     public abstract class GuidBasedRequest : IValidatable
     {
-        public Guid? Guid { get; set; }
+        public virtual Guid? Guid { get; set; }
 
         public GuidBasedRequest() { }
 

@@ -1,5 +1,4 @@
 ﻿using RedRainParks.Data.SQL;
-using RedRainParks.Domain.Extensions;
 using RedRainParks.Domain.Interfaces;
 using RedRainParks.Domain.Models.ParkLocationModels;
 using RedRainParks.Domain.Models.ParkLocationModels.Requests;
@@ -34,7 +33,7 @@ namespace RedRainParks.Data.Repositories
 
         private static readonly string GetParkLocationByIdOrParkCode = SqlGenerator.Fetch(typeof(ParkLocationDTO));
 
-        private static readonly string InsertParkLocation = SharedSql.Insert("ParkLocation", typeof(InsertParkLocationRequest).GetSqlPropertyNames());
+        private static readonly string InsertParkLocation = SqlGenerator.Insert(typeof(InsertParkLocationRequest));
 
         private static readonly string InsertParkAddress = SqlGenerator.Insert(typeof(InsertParkAddressRequest));
 

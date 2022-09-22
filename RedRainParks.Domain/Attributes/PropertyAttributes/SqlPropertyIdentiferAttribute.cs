@@ -6,7 +6,7 @@
         /// <summary>
         /// SpecifiedColumnName is be to used when getting DTOProperties for Sql Procedures. If SpecifiedColumnName is left null then the PropertyName will be used.
         /// </summary>
-        public string? SpecifiedColumnName { get; set; } = null;
+        public string? SpecifiedDatabaseName { get; set; } = null;
 
         public SqlPropertyIdentiferAttribute()
         {
@@ -15,7 +15,9 @@
 
         protected SqlPropertyIdentiferAttribute(string specifiedColumnName)
         {
-            SpecifiedColumnName = specifiedColumnName;
+            SpecifiedDatabaseName = specifiedColumnName;
         }
+
+        public string SpecifiedDatabaseNameOr(string otherName) => string.IsNullOrWhiteSpace(SpecifiedDatabaseName) ? otherName : SpecifiedDatabaseName;
     }
 }

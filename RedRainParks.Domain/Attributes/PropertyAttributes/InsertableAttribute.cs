@@ -7,20 +7,20 @@
             TableName = tableName;
         }
 
-        public InsertableAttribute(string tableName, string specifiedColumnName, bool useScopedIdentity, string sqlTypeName) : this(tableName, specifiedColumnName)
+        public InsertableAttribute(string tableName, string specifiedDatabaseName, bool useScopedIdentity, string sqlTypeName = "INT") : this(tableName, specifiedDatabaseName)
         {
             UseScopedIdentity = useScopedIdentity;
             SqlTypeName = sqlTypeName;
         }
 
-        public InsertableAttribute(string tableName, string specifiedColumnName) : this(tableName)
+        public InsertableAttribute(string tableName, string specifiedDatabaseName) : this(tableName)
         {
-            SpecifiedColumnName = specifiedColumnName;
+            SpecifiedDatabaseName = specifiedDatabaseName;
         }
 
-        public InsertableAttribute(string tableName, string specifiedColumnName, string fromTableColumnName) : this(tableName, specifiedColumnName)
+        public InsertableAttribute(string tableName, string specifiedDatabaseName, string columnNameToFetch) : this(tableName, specifiedDatabaseName)
         {
-            FromColumnName = fromTableColumnName;
+            ColumnNameToFetch = columnNameToFetch;
         }
 
         public bool UseScopedIdentity;
@@ -29,8 +29,10 @@
 
         public string TableName { get; set; }
 
-        public string FromNameOrParameterName(string propertyName) => string.IsNullOrWhiteSpace(FromColumnName) ? $"@{propertyName}" : FromColumnName;
+        public string ColumnNameToFetchOr(string propertyName) => string.IsNullOrWhiteSpace(ColumnNameToFetch) ? $"@{propertyName}" : ColumnNameToFetch;
 
-        public string FromColumnName { get; set; } = string.Empty;
+        public string ColumnNameToFetch { get; set; } = string.Empty;
+
+        public string DeclareAndSetScopedIdentity(string parameterName) => UseScopedIdentity ? $"DECLARE @{parameterName} {SqlTypeName} = SCOPE_IDENTITY() " : string.Empty;
     }
 }
