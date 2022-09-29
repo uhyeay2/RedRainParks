@@ -1,5 +1,4 @@
-﻿using RedRainParks.Data.SQL;
-using RedRainParks.Domain.Interfaces;
+﻿using RedRainParks.Domain.Interfaces;
 using RedRainParks.Domain.Models.UsedGuidModels.Requests;
 
 namespace RedRainParks.Data.Repositories
@@ -23,9 +22,9 @@ namespace RedRainParks.Data.Repositories
 
         private const string Insert = "INSERT INTO UsedGuid (UniqueIdentifier) VALUES (@Guid)";
 
-        private static readonly string DoesGuidExist = SharedSql.SelectExists("UsedGuid", "UniqueIdentifier = @Guid");
+        private static readonly string DoesGuidExist = SqlGenerator.SelectExists("UsedGuid", "UniqueIdentifier = @Guid");
 
-        private static readonly string Delete = SharedSql.Delete("UsedGuid", "UniqueIdentifier = @Guid");
+        private static readonly string Delete = SqlGenerator.Delete("UsedGuid", "UniqueIdentifier = @Guid");
 
         #endregion
     }

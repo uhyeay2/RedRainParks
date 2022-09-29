@@ -1,4 +1,4 @@
-﻿namespace RedRainParks.Domain.Attributes.PropertyAttributes
+﻿namespace RedRainParks.Domain.Attributes.SQLGeneration.FetchAttributes
 {
     public class FetchableAttribute : SqlPropertyIdentiferAttribute
     {

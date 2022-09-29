@@ -12,23 +12,23 @@ namespace RedRainParks.Domain.Tests.Extensions
 
         public static readonly object[] AggregateWithCommasExpectedOutput =
         {
-            new object[] { new string[] { "a", "b", "c" }, "a, b, c" },
-            new object[] { new string[] { "1", "2", "3" }, "1, 2, 3" },
-            new object[] { new string[] { "first", "second", "third" }, "first, second, third" },
-            new object[] { new string[] { "Table_Column", "OtherTable_OtherColumn", "LastTable_LastColumn" }, "Table_Column, OtherTable_OtherColumn, LastTable_LastColumn" },
+            new object[] { new string[] { "a", "b", "c" }, "a,\n b,\n c" },
+            new object[] { new string[] { "1", "2", "3" }, "1,\n 2,\n 3" },
+            new object[] { new string[] { "first", "second", "third" }, "first,\n second,\n third" },
+            new object[] { new string[] { "Table_Column", "OtherTable_OtherColumn", "LastTable_LastColumn" }, "Table_Column,\n OtherTable_OtherColumn,\n LastTable_LastColumn" },
         };
 
 
         [Test, TestCaseSource(nameof(NullOrEmptyIEnumerables))]
         public void AggregateWithCommas_Given_EmptyArray_Should_ReturnEmptyString(IEnumerable<string> nullOrEmpty) =>
-            Assert.That(nullOrEmpty.AggregateWithCommas(), Is.Empty);
+            Assert.That(nullOrEmpty.AggregateWithCommaNewLine(), Is.Empty);
 
         [Test, TestCaseSource(nameof(AggregateWithCommasExpectedOutput))]
         public void AggregateWithCommas_Given_ValidStrings_Should_ReturnStringsAggregated(IEnumerable<string> strings, string expected) =>
-            Assert.That(strings.AggregateWithCommas(), Is.EqualTo(expected));
+            Assert.That(strings.AggregateWithCommaNewLine(), Is.EqualTo(expected));
 
         [Test]
         public void AggregateWithCommas_Given_OnlyOneString_Should_NotAddComma() =>
-            Assert.That(new string[] { "One String" }.AggregateWithCommas(), Is.EqualTo("One String"));
+            Assert.That(new string[] { "One String" }.AggregateWithCommaNewLine(), Is.EqualTo("One String"));
     }
 }

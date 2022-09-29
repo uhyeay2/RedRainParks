@@ -1,5 +1,4 @@
-﻿using RedRainParks.Data.SQL;
-using RedRainParks.Domain.Interfaces;
+﻿using RedRainParks.Domain.Interfaces;
 using RedRainParks.Domain.Models.ParkLocationModels;
 using RedRainParks.Domain.Models.ParkLocationModels.Requests;
 

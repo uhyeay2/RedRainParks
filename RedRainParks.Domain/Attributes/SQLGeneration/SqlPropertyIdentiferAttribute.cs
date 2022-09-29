@@ -1,4 +1,4 @@
-﻿namespace RedRainParks.Domain.Attributes.PropertyAttributes
+﻿namespace RedRainParks.Domain.Attributes.SQLGeneration
 {
     [AttributeUsage(AttributeTargets.Property)]
     public abstract class SqlPropertyIdentiferAttribute : Attribute
@@ -13,9 +13,9 @@
 
         }
 
-        protected SqlPropertyIdentiferAttribute(string specifiedColumnName)
+        protected SqlPropertyIdentiferAttribute(string specifiedDatabaseName)
         {
-            SpecifiedDatabaseName = specifiedColumnName;
+            SpecifiedDatabaseName = specifiedDatabaseName;
         }
 
         public string SpecifiedDatabaseNameOr(string otherName) => string.IsNullOrWhiteSpace(SpecifiedDatabaseName) ? otherName : SpecifiedDatabaseName;

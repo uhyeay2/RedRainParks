@@ -16,12 +16,12 @@ namespace RedRainParks.API.Tests.ControllerTests.AddressControllerTests
         protected readonly AddressDTO? _testDto;
 
         //Shared Test Case
-        public static object[] InvalidGuids = { Guid.Empty.ToString(), null!, "BadGuid", "", "         ", "123", "12-23-1987" };
+        public static readonly object[] InvalidGuids = { Guid.Empty.ToString(), null!, "BadGuid", "", "         ", "123", "12-23-1987" };
 
         public AddressControllerTest()
         {
             _testDto = new(address_Id: 54321, address_Guid: Guid.NewGuid(), address_CreatedAtDateInUTC: DateTime.UtcNow, address_LastUpdatedDateInUTC: DateTime.Now, 
-                "Line 1", "Line 2", "City", address_StateId: 21, "32073-1234", stateLookup_Id: 21, "Abbreviation", "English", "Spanish");
+                "Line 1", "Line 2", "City", address_StateId: 21, "32073-1234", "Abbreviation", "English", "Spanish");
         }
 
         [SetUp]

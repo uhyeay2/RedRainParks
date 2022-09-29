@@ -1,8 +1,9 @@
-﻿using RedRainParks.Domain.Attributes.PropertyAttributes;
+﻿using RedRainParks.Domain.Attributes.SQLGeneration.UpdateAttributes;
 using RedRainParks.Domain.Models.BaseRequests;
 
 namespace RedRainParks.Domain.Models.AddressModels.Requests
 {
+    [UpdateQuery("Address", "Id = @Id")]
     public class UpdateAddressByIdRequest : LongIdBasedRequest
     {
         public UpdateAddressByIdRequest(long id, string? line1, string? line2, string? city, int? state, string? postalCode) : base(id)
@@ -14,19 +15,19 @@ namespace RedRainParks.Domain.Models.AddressModels.Requests
             PostalCode = postalCode;
         }
 
-        [Updatable]
+        [Updatable(isCoalesceUpdate: true)]
         public string? Line1 { get; set; }
 
-        [Updatable]
+        [Updatable(isCoalesceUpdate: true)]
         public string? Line2 { get; set; }
 
-        [Updatable]
+        [Updatable(isCoalesceUpdate: true)]
         public string? City { get; set; }
 
-        [Updatable("StateId")]
+        [Updatable(true, "StateId")]
         public int? State { get; set; }
 
-        [Updatable]
+        [Updatable(isCoalesceUpdate: true)]
         public string? PostalCode { get; set; }
 
         public override bool IsValid(out string failedValidationMessage)

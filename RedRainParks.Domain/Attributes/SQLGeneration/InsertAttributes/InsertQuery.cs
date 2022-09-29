@@ -1,4 +1,4 @@
-﻿namespace RedRainParks.Domain.Attributes.ClassAttributes
+﻿namespace RedRainParks.Domain.Attributes.SQLGeneration.InsertAttributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class InsertQuery : SqlScriptAttribute

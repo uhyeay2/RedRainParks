@@ -1,5 +1,4 @@
-﻿using RedRainParks.Domain.Attributes.ClassAttributes;
-using RedRainParks.Domain.Attributes.PropertyAttributes;
+﻿using RedRainParks.Domain.Attributes.SQLGeneration.InsertAttributes;
 using RedRainParks.Domain.Models.BaseModels.BaseRequests;
 
 namespace RedRainParks.Domain.Models.ParkLocationModels.Requests

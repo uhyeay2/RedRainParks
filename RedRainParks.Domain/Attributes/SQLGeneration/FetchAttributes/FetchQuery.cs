@@ -1,11 +1,11 @@
-﻿namespace RedRainParks.Domain.Attributes.ClassAttributes
+﻿namespace RedRainParks.Domain.Attributes.SQLGeneration.FetchAttributes
 {
     public class FetchQuery : SqlScriptAttribute
     {
 
         public string Joins = string.Empty;
 
-        private string? _orderBy;
+        private readonly string? _orderBy;
         public string OrderBy => string.IsNullOrWhiteSpace(_orderBy) ? string.Empty : "ORDER BY " + _orderBy;
 
         public string? Top { get; set; }

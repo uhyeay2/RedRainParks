@@ -15,4 +15,8 @@
     <ProjectReference Include="..\RedRainParks.Domain\RedRainParks.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SQL\" />
+  </ItemGroup>
+
 </Project>

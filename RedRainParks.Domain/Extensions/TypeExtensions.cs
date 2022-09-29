@@ -1,4 +1,4 @@
-﻿using RedRainParks.Domain.Attributes.PropertyAttributes;
+﻿using RedRainParks.Domain.Attributes.SQLGeneration;
 
 namespace RedRainParks.Domain.Extensions
 {

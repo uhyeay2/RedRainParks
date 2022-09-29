@@ -1,5 +1,4 @@
-﻿using RedRainParks.Domain.Attributes.ClassAttributes;
-using RedRainParks.Domain.Attributes.PropertyAttributes;
+﻿using RedRainParks.Domain.Attributes.SQLGeneration.FetchAttributes;
 
 namespace RedRainParks.Domain.Models.AddressModels
 {
@@ -16,7 +15,7 @@ namespace RedRainParks.Domain.Models.AddressModels
 
         }
 
-        public AddressDTO(long address_Id, Guid address_Guid, DateTime address_CreatedAtDateInUTC, DateTime? address_LastUpdatedDateInUTC, string? address_Line1, string? address_Line2, string? address_City, int? address_StateId, string? address_PostalCode, int stateLookup_Id, string? stateLookup_Abbreviation, string? stateLookup_EnglishDisplay, string? stateLookup_SpanishDisplay)
+        public AddressDTO(long address_Id, Guid address_Guid, DateTime address_CreatedAtDateInUTC, DateTime? address_LastUpdatedDateInUTC, string? address_Line1, string? address_Line2, string? address_City, int? address_StateId, string? address_PostalCode, string? stateLookup_Abbreviation, string? stateLookup_EnglishDisplay, string? stateLookup_SpanishDisplay)
         {
             Id = address_Id;
             Guid = address_Guid;

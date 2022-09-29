@@ -1,6 +1,4 @@
-﻿using RedRainParks.Data.SQL;
-using RedRainParks.Domain.Extensions;
-using RedRainParks.Domain.Interfaces;
+﻿using RedRainParks.Domain.Interfaces;
 using RedRainParks.Domain.Models.AddressModels;
 using RedRainParks.Domain.Models.AddressModels.Requests;
 
@@ -34,13 +32,14 @@ namespace RedRainParks.Data.Repositories
 
         private static readonly string GetByGuid = SqlGenerator.Fetch(typeof(AddressDTO), whereOverride: "Address.Guid = @Guid");
 
-        private static readonly string UpdateById = SharedSql.CoalesceUpdate("Address", typeof(UpdateAddressByIdRequest).GetSqlPropertyNames(), "Address.Id = @Id");
+        private static readonly string UpdateById = SqlGenerator.Update(typeof(UpdateAddressByIdRequest));
 
-        private static readonly string DeleteById = SharedSql.Delete("Address", "Id = @Id");
+        private static readonly string DeleteById = SqlGenerator.Delete("Address", "Id = @Id");
 
         private static readonly string Insert = SqlGenerator.Insert(typeof(InsertAddressRequest));
 
-        private const string InsertProc = "PROC_INSERT_Address";
+        // Example of how you can pass in an SP Name to execute
+        // private const string InsertProc = "PROC_INSERT_Address";
 
         #endregion
     }

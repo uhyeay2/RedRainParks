@@ -1,5 +1,4 @@
-﻿using RedRainParks.Data.SQL;
-using RedRainParks.Domain.Interfaces;
+﻿using RedRainParks.Domain.Interfaces;
 using RedRainParks.Domain.Models.StateModels;
 using RedRainParks.Domain.Models.StateModels.Requests;
 
@@ -29,7 +28,7 @@ namespace RedRainParks.Data.Repositories
         private static readonly string FetchByIdOrAbbreviation = SqlGenerator.Fetch(typeof(StateLookupDTO),
             whereOverride: "(Id = @Id OR @Id IS NULL) AND (Abbreviation = @Abbreviation OR @Abbreviation IS NULL)");
 
-        private  static readonly string IsValidId = SharedSql.SelectExists("StateLookup", "Id = @Id");
+        private  static readonly string IsValidId = SqlGenerator.SelectExists("StateLookup", "Id = @Id");
 
         #endregion
     }
