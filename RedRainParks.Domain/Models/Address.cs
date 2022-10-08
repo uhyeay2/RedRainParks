@@ -1,6 +1,4 @@
-﻿using RedRainParks.Domain.Enums;
-
-namespace RedRainParks.Domain.Models.AddressModels
+﻿namespace RedRainParks.Domain.Models
 {
     public class Address
     {
@@ -21,11 +19,6 @@ namespace RedRainParks.Domain.Models.AddressModels
             PostalCode = postalCode ?? string.Empty;
             City = city ?? string.Empty;
             State = state ?? string.Empty;
-        }
-
-        public Address(AddressDTO address, StateDisplay stateDisplay) : this(address.Line1, address.Line2, address.City, 
-            stateDisplay.GetDisplayByLanguage(address.StateAbbreviation, address.StateEnglishDisplay, address.StateSpanishDisplay), address.PostalCode)  
-        {
-        }
+        }       
     }
 }

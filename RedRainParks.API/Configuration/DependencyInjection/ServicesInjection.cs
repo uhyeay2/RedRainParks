@@ -1,7 +1,10 @@
-﻿using RedRainParks.API.Configuration.DependencyInjection;
+﻿using DataRequestHandler;
+using DataRequestHandler.Interfaces;
+using DataRequestMediator;
+using MediatR;
 using RedRainParks.Domain.Interfaces;
 
-namespace RedRainParks.API.Configuration
+namespace RedRainParks.API.Configuration.DependencyInjection
 {
     public static class ServicesInjection
     {
@@ -9,18 +12,20 @@ namespace RedRainParks.API.Configuration
         {
             if (services == null)
             {
-                throw new ArgumentNullException("Services not found when InjectingDependencies");
+                throw new ArgumentNullException(nameof(services));
             }
 
             services.AddControllers();
-            
+
             services.AddEndpointsApiExplorer();
-            
+
             services.AddSwaggerGen();
 
             services.AddSingleton<IConfig, ApiConfig>();
-            
-            services.AddRepositories();
+
+            services.AddTransient<IDataHandler, DataHandler>();
+
+            services.AddMediatR(typeof(DataRequestMediatorEntryPoint).Assembly);
 
             return services;
         }

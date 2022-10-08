@@ -1,4 +1,4 @@
-using RedRainParks.API.Configuration;
+using RedRainParks.API.Configuration.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 

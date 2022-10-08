@@ -21,4 +21,8 @@
     <ProjectReference Include="..\RedRainParks.API\RedRainParks.API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ControllerTests\" />
+  </ItemGroup>
+
 </Project>

@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RedRainParks.Domain.Interfaces;
-using RedRainParks.Domain.Models.AddressModels;
-using RedRainParks.Domain.Models.AddressModels.Requests;
-using RedRainParks.Domain.Models.AddressModels.Responses;
-using RedRainParks.Domain.Models.BaseModels;
-using RedRainParks.Domain.Models.StateModels.Requests;
+﻿using DataRequestMediator.Handlers.AddressHandlers;
+using DataRequestMediator.Responses;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RedRainParks.API.Controllers
 {
@@ -12,54 +9,23 @@ namespace RedRainParks.API.Controllers
     [Route("[controller]")]
     public class AddressController
     {
-        private readonly IAddressRepository _addressRepo;
-        private readonly IStateLookupRepository _stateLookupRepo;
+        private readonly IMediator _mediator;
 
-        public AddressController(IAddressRepository addressRepo, IStateLookupRepository stateLookupRepo)
-        {
-            _addressRepo = addressRepo;
-            _stateLookupRepo = stateLookupRepo;
-        }
+        public AddressController(IMediator mediator) => _mediator = mediator;
 
-        [HttpPost("GetByGuid")]
-        public async Task<GetAddressByGuidResponse> GetByGuidAsync([FromHeader] string guid, string stateDisplay = "English")
-        {
-            var request = new GetAddressByGuidRequest(guid);
+        [HttpGet("GetByGuid")]
+        public async Task<IResponse> GetByGuidAsync([FromHeader] Guid guid) => await _mediator.Send(new GetAddressByGuidRequest(guid));
 
-            if (request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
-                return new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
-
-            return new (await _addressRepo.FetchAsync<GetAddressByGuidRequest, AddressDTO>(request), stateDisplay);
-        }            
+        [HttpGet("GetById")]
+        public async Task<IResponse> GetByIdAsync(GetAddressByIdRequest request) => await _mediator.Send(request);
             
         [HttpPost("Insert")]
-        public async Task<ExecutionResponse> InsertAsync(InsertAddressRequest request)
-        {
-            if (request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
-                return new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
-
-            if (!await _stateLookupRepo.FetchAsync<IsValidStateLookupIdRequest, bool>(new(request.StateId)))
-                return new(Domain.Constants.StatusCodes.BadRequest_400, $"Invalid StateId Provided! No State Found With Id: {request.StateId}");
-
-            return new( await _addressRepo.ExecuteAsync(request));
-        }
-
+        public async Task<IResponse> InsertAsync(InsertAddressRequest request) => await _mediator.Send(request);
 
         [HttpPost("Update")]
-        public async Task<ExecutionResponse> UpdateAsync(UpdateAddressByIdRequest request) 
-        {
-            if (request is IValidatable validatable && !validatable.IsValid(out var failedValidationMessage))
-                return new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage);
-
-            if (!await _stateLookupRepo.FetchAsync<IsValidStateLookupIdRequest, bool>(new(request.State.GetValueOrDefault())))
-                return new(Domain.Constants.StatusCodes.NotFound_404, $"Invalid StateId Provided! No State Found With Id: {request.State}");
-
-            return new(await _addressRepo.ExecuteAsync(request));
-        } 
+        public async Task<IResponse> UpdateAsync(UpdateAddressRequest request) => await _mediator.Send(request);
 
         [HttpDelete("Delete")]
-        public async Task<ExecutionResponse> DeleteAsync(DeleteAddressByIdRequest request) => request is IValidatable validatable &&
-            !validatable.IsValid(out var failedValidationMessage) ? new(Domain.Constants.StatusCodes.BadRequest_400, failedValidationMessage)
-                : new(await _addressRepo.ExecuteAsync(request));
+        public async Task<IResponse> DeleteAsync(DeleteAddressByIdRequest request) => await _mediator.Send(request);
     }
 }

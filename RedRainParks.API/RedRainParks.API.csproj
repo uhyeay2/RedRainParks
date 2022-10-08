@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RedRainParks.Data\RedRainParks.Data.csproj" />
+    <ProjectReference Include="..\..\DataRequestHandler\DataRequestMediator\DataRequestMediator.csproj" />
     <ProjectReference Include="..\RedRainParks.Domain\RedRainParks.Domain.csproj" />
   </ItemGroup>
 
