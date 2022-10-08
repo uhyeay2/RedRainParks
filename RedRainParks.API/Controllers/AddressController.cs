@@ -1,6 +1,4 @@
 ﻿using DataRequestMediator.Handlers.AddressHandlers;
-using DataRequestMediator.Responses;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RedRainParks.API.Controllers
@@ -17,7 +15,7 @@ namespace RedRainParks.API.Controllers
         public async Task<IResponse> GetByGuidAsync([FromHeader] Guid guid) => await _mediator.Send(new GetAddressByGuidRequest(guid));
 
         [HttpGet("GetById")]
-        public async Task<IResponse> GetByIdAsync(GetAddressByIdRequest request) => await _mediator.Send(request);
+        public async Task<IResponse> GetByIdAsync(long id) => await _mediator.Send(new GetAddressByIdRequest(id));
             
         [HttpPost("Insert")]
         public async Task<IResponse> InsertAsync(InsertAddressRequest request) => await _mediator.Send(request);
@@ -26,6 +24,6 @@ namespace RedRainParks.API.Controllers
         public async Task<IResponse> UpdateAsync(UpdateAddressRequest request) => await _mediator.Send(request);
 
         [HttpDelete("Delete")]
-        public async Task<IResponse> DeleteAsync(DeleteAddressByIdRequest request) => await _mediator.Send(request);
+        public async Task<IResponse> DeleteAsync(long id) => await _mediator.Send(new DeleteAddressByIdRequest(id));
     }
 }
