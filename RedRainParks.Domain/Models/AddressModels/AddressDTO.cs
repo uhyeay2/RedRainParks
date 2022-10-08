@@ -35,7 +35,7 @@ namespace RedRainParks.Domain.Models.AddressModels
 
         #region Fields From Address Table
 
-        [Fetchable("Address.Id")]
+        [Fetchable(specifiedDatabaseName: "Address.Id")]
         public long Id { get; set; }
 
         [Fetchable]

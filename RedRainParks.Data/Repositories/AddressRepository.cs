@@ -5,7 +5,7 @@ using RedRainParks.Domain.Models.AddressModels.Requests;
 namespace RedRainParks.Data.Repositories
 {
     public class AddressRepository : RepositoryBase, IAddressRepository
-    {
+    {      
         protected override Dictionary<Type, object> _inputAndTargetSqlMappings { get; set; }
         
         public AddressRepository(IConfig config) : base(config) 
