@@ -17,6 +17,10 @@ namespace RedRainParks.API.Controllers
         [HttpGet("getAddressByParkCode")]
         public async Task<IResponse> GetAddressByParkCode(string parkCode) => await _mediator.Send(new GetParkAddressByParkCodeRequest(parkCode));
 
+        [HttpPost("insertParkLocation")]
+        public async Task<IResponse> InsertParkLocation(InsertParkLocationRequest request) => await _mediator.Send(request);
 
+        [HttpPost("insertParkAddress")]
+        public async Task<IResponse> InsertParkAddress(InsertParkAddressRequest request) => await _mediator.Send(request);
     }
 }
