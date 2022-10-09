@@ -3,6 +3,8 @@
     [FetchQuery("StateLookup WITH(NOLOCK)")]
     public class StateLookupDTO
     {
+        public StateLookupDTO() { }
+
         [Fetchable]
         public int Id { get; set; }
 

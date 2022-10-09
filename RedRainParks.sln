@@ -13,9 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BAC30CD2-A0C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{D63C576A-FE0A-4A0A-99C3-3429D4B3962F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRequestHandler", "DataAccess\DataRequestHandler\DataRequestHandler.csproj", "{E6C29088-AF5A-42BB-823F-22575758030C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedRainParks.DataAccess", "DataAccess\DataRequestHandler\RedRainParks.DataAccess.csproj", "{E6C29088-AF5A-42BB-823F-22575758030C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRequestMediator", "DataAccess\DataRequestMediator\DataRequestMediator.csproj", "{DDED07B5-2D70-47B3-8ADC-4A420EA9F68A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedRainParks.DataAccessMediator", "DataAccess\DataRequestMediator\RedRainParks.DataAccessMediator.csproj", "{DDED07B5-2D70-47B3-8ADC-4A420EA9F68A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{161689F5-EC50-4740-B7A3-64C56C045517}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
 ﻿using DataRequestHandler;
 using DataRequestHandler.Interfaces;
 using DataRequestMediator;
-using MediatR;
+using RedRainParks.DataAccessMediator.Mappings;
 using RedRainParks.Domain.Interfaces;
 
 namespace RedRainParks.API.Configuration.DependencyInjection
@@ -22,6 +22,8 @@ namespace RedRainParks.API.Configuration.DependencyInjection
             services.AddSwaggerGen();
 
             services.AddSingleton<IConfig, ApiConfig>();
+
+            services.AddSingleton(MappingProfiles.GetMapperConfiguration().CreateMapper());
 
             services.AddTransient<IDataHandler, DataHandler>();
 

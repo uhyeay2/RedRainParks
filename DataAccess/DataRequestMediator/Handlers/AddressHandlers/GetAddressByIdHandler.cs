@@ -4,23 +4,17 @@ namespace DataRequestMediator.Handlers.AddressHandlers
 {
     public record GetAddressByIdRequest(long Id) : IRequest<IResponse<Address>>;
 
-    internal class GetAddressByIdHandler : IRequestHandler<GetAddressByIdRequest, IResponse>
+    internal class GetAddressByIdHandler : BaseRequestHandler, IRequestHandler<GetAddressByIdRequest, IResponse>
     {
-        private readonly IDataHandler _dataHandler;
-
-        public GetAddressByIdHandler(IDataHandler dataHandler)
-        {
-            _dataHandler = dataHandler;
-        }
+        public GetAddressByIdHandler(IDataHandler dataHandler, IMapper mapper) : base(dataHandler, mapper) { }
 
         public async Task<IResponse> Handle(GetAddressByIdRequest request, CancellationToken cancellationToken)
         {
-            var dto = await _dataHandler.FetchAsync<GetAddressById, AddressDTO>(new(request.Id));
+            var dto = await _dataHandler.FetchAsync<GetAddressById, AddressDTO>(_mapper.Map<GetAddressById>(request));
 
             if(dto == null) return Response.NotFound("No Address found with Id: " + request.Id);
 
-            return Response.SuccessWithContent<Address>(new(dto.Guid, dto.Line1 ?? string.Empty, dto.Line2 ?? string.Empty, dto.City ?? string.Empty,
-                dto.StateAbbreviation ?? string.Empty, dto.PostalCode ?? string.Empty));
+            return Response.SuccessWithContent(_mapper.Map<Address>(dto));
         }
     }
 }

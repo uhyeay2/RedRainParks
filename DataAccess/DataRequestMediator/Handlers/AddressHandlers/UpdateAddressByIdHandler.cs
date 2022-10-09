@@ -4,15 +4,13 @@ namespace DataRequestMediator.Handlers.AddressHandlers
 {
     public record UpdateAddressRequest(long Id, string Line1, string Line2, string City, int StateId, string PostalCode) : IRequest<IResponse>;
 
-    internal class UpdateAddressByIdHandler : IRequestHandler<UpdateAddressRequest, IResponse>
+    internal class UpdateAddressByIdHandler : BaseRequestHandler, IRequestHandler<UpdateAddressRequest, IResponse>
     {
-        private readonly IDataHandler _dataHandler;
-
-        public UpdateAddressByIdHandler(IDataHandler dataHandler) => _dataHandler = dataHandler;
+        public UpdateAddressByIdHandler(IDataHandler dataHandler, IMapper mapper) : base(dataHandler, mapper) { }
 
         public async Task<IResponse> Handle(UpdateAddressRequest request, CancellationToken cancellationToken)
         {
-            var rowsAffected = await _dataHandler.ExecuteAsync(new UpdateAddressById(request.Id, request.Line1, request.Line2, request.City, request.StateId, request.PostalCode));
+            var rowsAffected = await _dataHandler.ExecuteAsync(_mapper.Map<UpdateAddressById>(request));
 
             if (rowsAffected == 1) return Response.Success;
 

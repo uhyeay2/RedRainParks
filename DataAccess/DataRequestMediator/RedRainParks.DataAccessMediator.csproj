@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,15 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Mappings\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="11.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataRequestHandler\DataRequestHandler.csproj" />
+    <ProjectReference Include="..\DataRequestHandler\RedRainParks.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,11 +4,9 @@ namespace DataRequestMediator.Handlers.StateLookupHandlers
 {
     public record GetStateByIdOrAbbreviationRequest(string Identifier) : IRequest<IResponse>;
 
-    internal class GetStateByIdOrAbbreviationHandler : IRequestHandler<GetStateByIdOrAbbreviationRequest, IResponse>
+    internal class GetStateByIdOrAbbreviationHandler : BaseRequestHandler, IRequestHandler<GetStateByIdOrAbbreviationRequest, IResponse>
     {
-        private readonly IDataHandler _dataHandler;
-
-        public GetStateByIdOrAbbreviationHandler(IDataHandler dataHandler) => _dataHandler = dataHandler;
+        public GetStateByIdOrAbbreviationHandler(IDataHandler dataHandler, IMapper mapper) : base(dataHandler, mapper) { }
 
         public async Task<IResponse> Handle(GetStateByIdOrAbbreviationRequest request, CancellationToken cancellationToken)
         {
@@ -18,7 +16,7 @@ namespace DataRequestMediator.Handlers.StateLookupHandlers
 
             if (dto == null) return Response.NotFound("No State was found with the identifier: " + request.Identifier);
 
-            return Response.SuccessWithContent(dto);
+            return Response.SuccessWithContent(_mapper.Map<StateLookup>(dto));
         }
     }
 }

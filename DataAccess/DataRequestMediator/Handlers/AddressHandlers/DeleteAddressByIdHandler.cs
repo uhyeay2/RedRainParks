@@ -4,15 +4,13 @@ namespace DataRequestMediator.Handlers.AddressHandlers
 {
     public record DeleteAddressByIdRequest(long Id) : IRequest<IResponse>;
 
-    internal class DeleteAddressByIdHandler : IRequestHandler<DeleteAddressByIdRequest, IResponse>
+    internal class DeleteAddressByIdHandler : BaseRequestHandler, IRequestHandler<DeleteAddressByIdRequest, IResponse>
     {
-        private readonly IDataHandler _dataHandler;
-
-        public DeleteAddressByIdHandler(IDataHandler dataHandler) => _dataHandler = dataHandler;
+        public DeleteAddressByIdHandler(IDataHandler dataHandler, IMapper mapper) : base(dataHandler, mapper) { }
 
         public async Task<IResponse> Handle(DeleteAddressByIdRequest request, CancellationToken cancellationToken)
         {
-            var rowsAffected = await _dataHandler.ExecuteAsync(new DeleteAddressById(request.Id));
+            var rowsAffected = await _dataHandler.ExecuteAsync(_mapper.Map<DeleteAddressById>(request));
 
             if (rowsAffected == 1) return Response.Success;
 

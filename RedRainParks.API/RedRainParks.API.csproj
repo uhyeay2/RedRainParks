@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DataRequestHandler\DataRequestMediator\DataRequestMediator.csproj" />
+    <ProjectReference Include="..\DataAccess\DataRequestMediator\RedRainParks.DataAccessMediator.csproj" />
     <ProjectReference Include="..\RedRainParks.Domain\RedRainParks.Domain.csproj" />
   </ItemGroup>
 
