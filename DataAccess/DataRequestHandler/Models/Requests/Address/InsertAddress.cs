@@ -1,6 +1,6 @@
 ﻿namespace DataRequestHandler.Models.Requests.Address
 {
-    [InsertQuery("Address")]
+    [InsertQuery("Address", ifNotExists: "SELECT * FROM Address WITH(NOLOCK) WHERE Guid = @Guid")]
     public class InsertAddress : GuidBasedRequest
     {
         public InsertAddress(Guid guid, string line1, string line2, string city, int stateId, string postalCode) : base(guid)

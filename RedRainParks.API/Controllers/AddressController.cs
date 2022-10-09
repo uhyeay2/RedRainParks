@@ -23,6 +23,6 @@ namespace RedRainParks.API.Controllers
         public async Task<IResponse> UpdateAsync(UpdateAddressRequest request) => await _mediator.Send(request);
 
         [HttpDelete("Delete")]
-        public async Task<IResponse> DeleteAsync(long id) => await _mediator.Send(new DeleteAddressByIdRequest(id));
+        public async Task<IResponse> DeleteAsync(Guid guid) => await _mediator.Send(new DeleteAddressRequest(guid));
     }
 }

@@ -1,9 +1,9 @@
 ﻿namespace DataRequestHandler.Models.Requests.Address
 {
-    [UpdateQuery("Address", "Id = @Id")]
-    public class UpdateAddressById : LongIdBasedRequest
+    [UpdateQuery("Address", "Guid = @Guid")]
+    public class UpdateAddress : GuidBasedRequest
     {
-        public UpdateAddressById(long id, string? line1, string? line2, string? city, int? state, string? postalCode) : base(id)
+        public UpdateAddress(Guid guid, string? line1, string? line2, string? city, int? state, string? postalCode) : base(guid)
         {
             Line1 = line1;
             Line2 = line2;
@@ -21,16 +21,16 @@
         [Updatable(isCoalesceUpdate: true)]
         public string? City { get; set; }
 
-        [Updatable(true, "StateId")]
+        [Updatable(isCoalesceUpdate: true, "StateId")]
         public int? State { get; set; }
 
         [Updatable(isCoalesceUpdate: true)]
         public string? PostalCode { get; set; }
 
-        public override object? GenerateParameters() => new { Id, Line1, Line2, City, State, PostalCode };
+        public override object? GenerateParameters() => new { Guid, Line1, Line2, City, State, PostalCode };
 
         public override string GenerateSql() => _sql;
 
-        private static readonly string _sql = SqlGenerator.Update(typeof(UpdateAddressById));
+        private static readonly string _sql = SqlGenerator.Update(typeof(UpdateAddress));
     }
 }

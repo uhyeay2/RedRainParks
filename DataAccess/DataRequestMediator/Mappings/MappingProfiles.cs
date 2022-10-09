@@ -1,5 +1,4 @@
-﻿using RedRainParks.DataAccessMediator.Mappings.DTOMappings;
-using RedRainParks.DataAccessMediator.Mappings.RequestMappings;
+﻿using RedRainParks.DataAccessMediator.Mappings.Profiles;
 
 namespace RedRainParks.DataAccessMediator.Mappings
 {
@@ -11,8 +10,8 @@ namespace RedRainParks.DataAccessMediator.Mappings
             config.AllowNullDestinationValues = true;
 
             config.AddProfiles(new List<Profile>() { 
-                new AddressDTOMappingProfile(), new AddressRequestMappingProfile(),
-                new StateLookupDTOMappingProfile()
+                new AddressMappingProfile(),
+                new StateLookupMappingProfile()
             });
         });
     }
