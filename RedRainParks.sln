@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{161689F5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRainParks.DataAccess.Tests", "RedRainParks.DataAccess.Tests\RedRainParks.DataAccess.Tests.csproj", "{EC244128-795C-4177-8D4B-10B6DF43BBE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRainParks.DataAccessMediator.Tests", "RedRainParks.DataAccessMediator.Tests\RedRainParks.DataAccessMediator.Tests.csproj", "{5EC491B9-C00B-4A79-B136-9EB9F3FC3600}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{EC244128-795C-4177-8D4B-10B6DF43BBE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC244128-795C-4177-8D4B-10B6DF43BBE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC244128-795C-4177-8D4B-10B6DF43BBE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC491B9-C00B-4A79-B136-9EB9F3FC3600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC491B9-C00B-4A79-B136-9EB9F3FC3600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC491B9-C00B-4A79-B136-9EB9F3FC3600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC491B9-C00B-4A79-B136-9EB9F3FC3600}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{E6C29088-AF5A-42BB-823F-22575758030C} = {D63C576A-FE0A-4A0A-99C3-3429D4B3962F}
 		{DDED07B5-2D70-47B3-8ADC-4A420EA9F68A} = {D63C576A-FE0A-4A0A-99C3-3429D4B3962F}
 		{EC244128-795C-4177-8D4B-10B6DF43BBE5} = {161689F5-EC50-4740-B7A3-64C56C045517}
+		{5EC491B9-C00B-4A79-B136-9EB9F3FC3600} = {161689F5-EC50-4740-B7A3-64C56C045517}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B23FCEC-B04F-462E-95BD-FE53AC166082}

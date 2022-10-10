@@ -1,6 +1,9 @@
 ﻿using DataRequestHandler;
 using DataRequestHandler.Interfaces;
 using DataRequestMediator;
+using FluentValidation;
+using RedRainParks.API.Middleware;
+using RedRainParks.DataAccessMediator.Behaviors;
 using RedRainParks.DataAccessMediator.Mappings;
 using RedRainParks.Domain.Interfaces;
 
@@ -16,18 +19,20 @@ namespace RedRainParks.API.Configuration.DependencyInjection
             }
 
             services.AddControllers();
-
             services.AddEndpointsApiExplorer();
-
             services.AddSwaggerGen();
 
             services.AddSingleton<IConfig, ApiConfig>();
-
-            services.AddSingleton(MappingProfiles.GetMapperConfiguration().CreateMapper());
-
             services.AddTransient<IDataHandler, DataHandler>();
 
-            services.AddMediatR(typeof(DataRequestMediatorEntryPoint).Assembly);
+            var assembly = typeof(DataRequestMediatorEntryPoint).Assembly;
+            services.AddSingleton(MappingProfiles.GetMapperConfiguration().CreateMapper());
+            services.AddMediatR(assembly);
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssembly(assembly);
+
+            services.AddTransient<ExceptionHandlingMiddleware>();
 
             return services;
         }

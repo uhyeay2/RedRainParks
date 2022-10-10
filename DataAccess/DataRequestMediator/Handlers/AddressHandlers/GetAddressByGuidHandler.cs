@@ -16,5 +16,5 @@ namespace DataRequestMediator.Handlers.AddressHandlers
 
             return Response.SuccessWithContent(_mapper.Map<Address>(dto));
         }
-    }
+    }  
 }
